@@ -8,12 +8,13 @@ namespace RacketInterpreter
 {
     struct TextSpan
     {
-        public int start;
-        public int end;
+        private int start;
+        private int end;
 
         public bool Contains(int index)
         {
-            return index >= start && index <= end;
+            //return index >= start && index <= end;
+            return start <= index <= end;
         }
 
         public int GetLength() { return end - start; }
