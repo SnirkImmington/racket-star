@@ -169,6 +169,17 @@ namespace RacketInterpreter
                         }
                         return answer.ToString();
                     }
+                case "expt":
+                    {
+                        if (arguments.Length == 3)
+                        {
+                            int baseInt = int.Parse(arguments[1]);
+                            int exponent = int.Parse(arguments[2]);
+                            return Math.Pow(baseInt, exponent).ToString();
+                        }
+                        return "Incorrect number of arguments! (expected 2)";
+                        
+                    }
                 case "define":
                     {
                         var newArgs = arguments.TakeWhile((args, index) => index > 0).ToArray();
