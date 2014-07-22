@@ -42,11 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CallArgument.cs" />
+    <Compile Include="Conversions.cs" />
     <Compile Include="Parsing.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RunTime.cs" />
-    <Compile Include="SyntaxTree.cs" />
+    <Compile Include="SyntaxNodes.cs" />
     <Compile Include="TextSpan.cs" />
   </ItemGroup>
   <ItemGroup>

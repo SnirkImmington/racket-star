@@ -68,9 +68,14 @@ namespace RacketInterpreter
       /// </summary>
       public SyntaxNode FalseExpression;
 
-      public ConditionalSyntax(SyntaxNode conditional, SyntaxNode trueExpression, SyntaxNode falseExpression)
+      public IfConditionalSyntaxNode(SyntaxNode conditional, SyntaxNode trueExpression, SyntaxNode falseExpression)
       {
          Conditional = conditional; TrueExpression = trueExpression; FalseExpression = falseExpression;
+      }
+
+      public override object getValue()
+      {
+          return null;
       }
     }
 }
