@@ -72,7 +72,6 @@ namespace RacketInterpreter
       {
          Conditional = conditional; TrueExpression = trueExpression; FalseExpression = falseExpression;
       }
-
       public override object getValue()
       {
           return null;
