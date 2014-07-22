@@ -169,7 +169,7 @@ namespace RacketInterpreter
                         }
                         return answer.ToString();
                     }
-                case "expt":
+                case "^":
                     {
                         if (arguments.Length == 3)
                         {
