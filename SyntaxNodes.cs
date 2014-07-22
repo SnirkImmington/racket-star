@@ -54,13 +54,19 @@ namespace RacketInterpreter
         }
     }
 
+    class ParameterInfo
+    {
+        public string Name;
+        public string Type;
+    }
+
     class DefineDeclarationSyntaxNode : SyntaxNode
     {
         public string Name;
-        //public ParameterInfo[] Parameters;
+        public ParameterInfo[] Parameters;
         public SyntaxNode[] Invocations;
 
-        public DefineDeclarationSyntaxNode(string Name, /*ParameterInfo[] parameters,*/ SyntaxNode[] invotations)
+        public DefineDeclarationSyntaxNode(string Name, ParameterInfo[] parameters, SyntaxNode[] invotations)
         {
         }
 
@@ -70,8 +76,8 @@ namespace RacketInterpreter
 
             // Save the last for return
             // This is a cool one-liner but at some point we'll need more for like exceptions or something
-            //for (int i = 0; i < parameters.Length - 1; i++)
-            Invocations[0].getValue();
+            for (int i = 0; i < Parameters.Length - 1; i++)
+                Invocations[i].getValue();
 
             return Invocations.Last().getValue();
         }
@@ -104,26 +110,26 @@ namespace RacketInterpreter
 
     class IfConditionalSyntaxNode : SyntaxNode
     {
-      /// <summary>
-      /// The expression to be checked against
-      /// </summary>
-      public SyntaxNode Conditional;
-      /// <summary>
-      /// The expression to be evaluated if Conditional is true
-      /// </summary>
-      public SyntaxNode TrueExpression; // length == 2
-      /// <summary>
-      /// The expression to be evaluated if Conditional is false
-      /// </summary>
-      public SyntaxNode FalseExpression;
+        /// <summary>
+        /// The expression to be checked against
+        /// </summary>
+        public SyntaxNode Conditional;
+        /// <summary>
+        /// The expression to be evaluated if Conditional is true
+        /// </summary>
+        public SyntaxNode TrueExpression; // length == 2
+        /// <summary>
+        /// The expression to be evaluated if Conditional is false
+        /// </summary>
+        public SyntaxNode FalseExpression;
 
-      public IfConditionalSyntaxNode(SyntaxNode conditional, SyntaxNode trueExpression, SyntaxNode falseExpression)
-      {
-         Conditional = conditional; TrueExpression = trueExpression; FalseExpression = falseExpression;
-      }
-      public override object getValue()
-      {
-          return null;
-      }
+        public IfConditionalSyntaxNode(SyntaxNode conditional, SyntaxNode trueExpression, SyntaxNode falseExpression)
+        {
+            Conditional = conditional; TrueExpression = trueExpression; FalseExpression = falseExpression;
+        }
+        public override object getValue()
+        {
+            return null;
+        }
     }
 }
