@@ -35,7 +35,7 @@ namespace RacketInterpreter
         /// </summary>
         public object Value;
 
-        // We will compile "strings", 'strings', chars ('c'), 
+        // We will compile "strings", 'strings', chars ('c'),
         // numbers as ints, floats or doubles for C# interopability
         public LiteralSyntaxNode(string type, object @value)
         {
@@ -45,12 +45,32 @@ namespace RacketInterpreter
         }
 
         /// <summary>
-        /// Returns the literal value 
+        /// Returns the literal value
         /// </summary>
         /// <returns></returns>
         public override object getValue()
         {
             return Value;
         }
+    }
+    class IfConditionalSyntaxNode : SyntaxNode
+    {
+      /// <summary>
+      /// The expression to be checked against
+      /// </summary>
+      public SyntaxNode Conditional;
+      /// <summary>
+      /// The expression to be evaluated if Conditional is true
+      /// </summary>
+      public SyntaxNode TrueExpression; // length == 2
+      /// <summary>
+      /// The expression to be evaluated if Conditional is false
+      /// </summary>
+      public SyntaxNode FalseExpression;
+
+      public ConditionalSyntax(SyntaxNode conditional, SyntaxNode trueExpression, SyntaxNode falseExpression)
+      {
+         Conditional = conditional; TrueExpression = trueExpression; FalseExpression = falseExpression;
+      }
     }
 }
