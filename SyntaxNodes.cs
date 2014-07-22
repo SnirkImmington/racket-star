@@ -60,10 +60,22 @@ namespace RacketInterpreter
         public string Type;
     }
 
+    /// <summary>
+    /// Syntax node used for (define (name arg arg) body body)
+    /// </summary>
     class DefineDeclarationSyntaxNode : SyntaxNode
     {
+        /// <summary>
+        /// The name of the function, the first element in the second part.
+        /// </summary>
         public string Name;
+        /// <summary>
+        /// The parameters to the method, to be added to the local stack.
+        /// </summary>
         public ParameterInfo[] Parameters;
+        /// <summary>
+        /// The body syntecies that are executed with the last one being returned
+        /// </summary>
         public SyntaxNode[] Invocations;
 
         public DefineDeclarationSyntaxNode(string Name, ParameterInfo[] parameters, SyntaxNode[] invotations)
@@ -132,4 +144,20 @@ namespace RacketInterpreter
             return null;
         }
     }
+
+    class ForLoopConditionalSyntax : ForConditionalSyntax
+    {
+        //public Function<int> maximum;
+    }
+
+    class ForConditionalSyntax : SyntaxNode
+    {
+        public SyntaxNode continueCheck;
+    }
+
+    class ForExpressionSyntax : SyntaxNode
+    {
+        public ForConditionalSyntax condition;
+    }
+	
 }
