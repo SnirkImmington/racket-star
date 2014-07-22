@@ -53,6 +53,55 @@ namespace RacketInterpreter
             return Value;
         }
     }
+
+    class DefineDeclarationSyntaxNode : SyntaxNode
+    {
+        public string Name;
+        //public ParameterInfo[] Parameters;
+        public SyntaxNode[] Invocations;
+
+        public DefineDeclarationSyntaxNode(string Name, /*ParameterInfo[] parameters,*/ SyntaxNode[] invotations)
+        {
+        }
+
+        public override object getValue()
+        {
+            // push parameters to the state
+
+            // Save the last for return
+            // This is a cool one-liner but at some point we'll need more for like exceptions or something
+            //for (int i = 0; i < parameters.Length - 1; i++)
+            Invocations[0].getValue();
+
+            return Invocations.Last().getValue();
+        }
+    }
+
+    class FunctionInvocationSyntaxNode : SyntaxNode
+    {
+        public string Name;
+        // Yea I feel like we'll have some subclass for these sometime
+        public SyntaxNode[] Parameters;
+
+        public FunctionInvocationSyntaxNode(string functionName, SyntaxNode[] parameters)
+        {
+            Name = functionName; Parameters = parameters;
+        }
+
+        public override object getValue()
+        {
+
+            // Some code to get a function that we/runtime defined.
+            //var func = getFunctionByName(Name);
+
+            // push name, parameters to state
+            // Some code to invoke a function and lazily expand it/etc.
+            // set parameters to values
+            //return func.invoke(parameters);
+            return null;
+        }
+    }
+
     class IfConditionalSyntaxNode : SyntaxNode
     {
       /// <summary>
