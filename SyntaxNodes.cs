@@ -54,6 +54,24 @@ namespace RacketInterpreter
         }
     }
 
+    /// <summary>
+    /// Represents a function returned by the "define" keyword.
+    /// This object will be added to the lookup tree to be later called
+    /// via FunctionInvocationSyntaxNode
+    /// </summary>
+    class FunctionInfo
+    {
+        public string Name;
+        public ParameterInfo[] Parameters;
+        // Eventually switch this to an Expression object once that's properly defined. 
+        public SyntaxNode[] Expressions;
+
+        public FunctionInfo(string name, ParameterInfo[] parameters, SyntaxNode[] expressions)
+        {
+            Name = name; Parameters = parameters; Expressions = expressions;
+        }
+    }
+
     class ParameterInfo
     {
         public string Name;
@@ -84,14 +102,9 @@ namespace RacketInterpreter
 
         public override object getValue()
         {
-            // push parameters to the state
-
-            // Save the last for return
-            // This is a cool one-liner but at some point we'll need more for like exceptions or something
-            for (int i = 0; i < Parameters.Length - 1; i++)
-                Invocations[i].getValue();
-
-            return Invocations.Last().getValue();
+            // Return an object that represents the function
+            // It can then be added to the state and later called using name/params
+            return new FunctionInfo(Name, Parameters, Invocations);
         }
     }
 
