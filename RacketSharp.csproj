@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CallArgument.cs" />
     <Compile Include="Conversions.cs" />
+    <Compile Include="Exceptions\Runtime.cs" />
     <Compile Include="Parsing.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

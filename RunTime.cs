@@ -4,27 +4,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RacketInterpreter
+namespace RacketSharp
 {
     static class RunTime
     {
-        // Store global variables by 
-        private static Dictionary<string, object> globals;
-        //private static Dictionary<string, > functions;
+        public static LinkedList<Scope> Scopes = new LinkedList<Scope>();
+    }
 
-        public static void Initialize()
+    class Scope
+    {
+        public Dictionary<string, object> Variables;
+
+        public object GetVariableValue(string name)
         {
-            globals = new Dictionary<string, object>();
+            var obj = Variables[name];
+
+            if (obj == null) throw new Exception("hi!");
+
+            return null;
         }
 
-        public static object GetVariable(string name)
+        public Scope()
         {
-            return globals[name];
-        }
-
-        public static void AddVariable(string name, object value)
-        {
-            globals.Add(name, value);
+            Variables = new Dictionary<string, dynamic>();
         }
     }
 }

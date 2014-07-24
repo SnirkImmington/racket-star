@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RacketInterpreter
+namespace RacketSharp
 {
     /// <summary>
     /// Base class for all syntax nodes. <br/>
@@ -179,11 +179,31 @@ namespace RacketInterpreter
     class ForConditionalSyntax : SyntaxNode
     {
         public SyntaxNode continueCheck;
+
+        public override object GetValue()
+        {
+            // Check continueCheck
+            var shouldContinueObj = continueCheck.GetValue();
+
+            if (!(shouldContinueObj is bool))
+                throw new Exception("Cmon man");
+
+            // Casting is done later.
+            return shouldContinueObj;
+        }
     }
 
     class ForExpressionSyntax : SyntaxNode
     {
         public ForConditionalSyntax condition;
+
+        public override object GetValue()
+        {
+            while (true)
+            {
+                var value = condition.GetValue()
+            }
+        }
     }
 	
 }
