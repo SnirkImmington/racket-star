@@ -16,7 +16,7 @@ namespace RacketInterpreter
         /// Each syntax node should ultimately return a value.
         /// </summary>
         /// <returns></returns>
-        public abstract object getValue();
+        public abstract object GetValue();
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace RacketInterpreter
         /// Returns the literal value
         /// </summary>
         /// <returns></returns>
-        public override object getValue()
+        public override object GetValue()
         {
             return Value;
         }
@@ -69,6 +69,19 @@ namespace RacketInterpreter
         public FunctionInfo(string name, ParameterInfo[] parameters, SyntaxNode[] expressions)
         {
             Name = name; Parameters = parameters; Expressions = expressions;
+        }
+
+        public object GetValue()
+        {
+            // TODO add stuff to stack
+
+            foreach (var expression in Expressions)
+            {
+
+            }
+
+            // close stack
+            return null;
         }
     }
 
@@ -100,7 +113,7 @@ namespace RacketInterpreter
         {
         }
 
-        public override object getValue()
+        public override object GetValue()
         {
             // Return an object that represents the function
             // It can then be added to the state and later called using name/params
@@ -119,7 +132,7 @@ namespace RacketInterpreter
             Name = functionName; Parameters = parameters;
         }
 
-        public override object getValue()
+        public override object GetValue()
         {
 
             // Some code to get a function that we/runtime defined.
@@ -152,7 +165,7 @@ namespace RacketInterpreter
         {
             Conditional = conditional; TrueExpression = trueExpression; FalseExpression = falseExpression;
         }
-        public override object getValue()
+        public override object GetValue()
         {
             return null;
         }

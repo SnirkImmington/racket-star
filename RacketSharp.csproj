@@ -7,8 +7,8 @@
     <ProjectGuid>{2796C8EF-49CA-4D86-A3F0-94A908BDF32B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>RacketInterpreter</RootNamespace>
-    <AssemblyName>RacketInterpreter</AssemblyName>
+    <RootNamespace>RacketSharp</RootNamespace>
+    <AssemblyName>RacketSharp</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
