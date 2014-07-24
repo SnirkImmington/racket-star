@@ -50,7 +50,7 @@ namespace RacketSharp
 
             for (int i = 0; i < name.Length; i++)
             {
-                if (name[i] == '-') break;
+                if (name[i] == '-') break; //Perhaps we should just convert to '_' and let there be collisions?
                 typeBuilder.Append(name[i]);
             }
 
@@ -68,6 +68,7 @@ namespace RacketSharp
             if (func != null)
             {
                 // Call function value with parameters.
+                return func.getValue();
             }
 
             // else, we need to search .NET for it.
@@ -78,7 +79,11 @@ namespace RacketSharp
             // if (method.static) method(arguments) else arguments[0].method(arguments.subList(1));
             var dashSplit = methodName.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
 
-            Type type = null; MethodInfo method = null;
+            FunctionInfo function = NativeMethods.get(dashSplit);
+
+            Type type = function.returnType; MethodInfo method = null; //How is MethodInfo going to be diferent from FunctionInfo?
+            var result = function.getValue();
+            // Check the return type here, throw exception if wrong (or return Null and check for it)
 
             return null;
         }
