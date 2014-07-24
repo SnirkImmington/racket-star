@@ -24,7 +24,10 @@ namespace RacketSharp
             Current = Scopes.Last;
         }
 
-        public static object GetVariableValue(string name)
+        /// <summary>
+        /// Searches the scope for name, returning the first result (local->global)
+        /// </summary>
+        public static object SearchScope(string name)
         {
             var currNode = Current;
             // Stop when we can't go backwards through the node anymore.
@@ -40,6 +43,15 @@ namespace RacketSharp
                 // If we got it, return it.
                 else return variable;
             }
+        }
+
+        public static object GetVariableValue(string name)
+        {
+            // Search the scope for the variable
+            // Might also want to do a type check, or add a param to SearchScope to specify method/variable
+            var variable = SearchScope(name);
+            if (variable != null)
+                return variable;
 
             // At this point, we need to search C# libs.
             // rakcet -> C# naming:
@@ -57,19 +69,13 @@ namespace RacketSharp
             return null;
         }
 
-        public static FunctionInfo GetFunction(string name) { return null; }
-
-        public static object CallMethod(string methodName, object[] arguments)
+        public static FunctionInfo GetFunction(string name)
         {
-            // 1. Search local scope(s).
-
-            // Search down the scopes.
-            var func = GetFunction(methodName);
-            if (func != null)
-            {
-                // Call function value with parameters.
-                return func.getValue();
-            }
+            // Search the scope for the function
+            // Might also want to do a type check, or add a param to SearchScope to specify method/variable
+            var function = SearchScope(name);
+            if (function != null)
+                return function;
 
             // else, we need to search .NET for it.
 
@@ -80,11 +86,21 @@ namespace RacketSharp
             var dashSplit = methodName.Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
 
             FunctionInfo function = NativeMethods.get(dashSplit);
+            if (function != null)
+                return function;
+            // If the function cannot be found, either return null or throw an exception
+            return null;
 
-            Type type = function.returnType; MethodInfo method = null; //How is MethodInfo going to be diferent from FunctionInfo?
-            var result = function.getValue();
-            // Check the return type here, throw exception if wrong (or return Null and check for it)
 
+        public static object CallMethod(string methodName, object[] arguments)
+        {
+            // 1. Search local scope(s).
+
+            // Search down the scopes.
+            var func = GetFunction(methodName);
+            if (func != null)
+                return func.getValue();
+            // The function could not be found, either return null or throw an exception
             return null;
         }
     }
