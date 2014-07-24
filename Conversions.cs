@@ -15,8 +15,8 @@ namespace RacketSharp
         /// <returns>A lower, dashier version.</returns>
         public static string getRacketName(string cSharpName)
         {
-            StringBuilder currentWordBuilder = new StringBuilder();
-            StringBuilder totalWordBuilder = new StringBuilder();
+            var currentWordBuilder = new StringBuilder();
+            var totalWordBuilder = new StringBuilder();
 
             for (int i = 0; i < cSharpName.Length; i++)
             {

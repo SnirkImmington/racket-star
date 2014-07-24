@@ -17,7 +17,7 @@ namespace RacketSharp
 
         public override string Message
         {
-            get { return "Unknown variable " + VariableNames; } 
+            get { return "Unknown variable " + VariableName; } 
         }
     }
 }

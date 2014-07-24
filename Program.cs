@@ -15,6 +15,8 @@ namespace RacketSharp
             Console.WriteLine("Let's make a racket.");
             Console.WriteLine();
 
+            Console.WriteLine(Utils.ToCSharpString("hello_world_I_am_C_sharp"));
+
             values = new Dictionary<string, object>();
 
             while (true)

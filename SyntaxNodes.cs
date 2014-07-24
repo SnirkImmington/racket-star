@@ -201,7 +201,7 @@ namespace RacketSharp
         {
             while (true)
             {
-                var value = condition.GetValue()
+                var value = condition.GetValue();
             }
         }
     }
