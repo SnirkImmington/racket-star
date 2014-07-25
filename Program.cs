@@ -10,7 +10,7 @@ namespace RacketSharp
     {
         private static Dictionary<string, object> values;
 
-        static void Main(string[] args)
+        static void NOT_Main(string[] args)
         {
             Console.WriteLine("Let's make a racket.");
             Console.WriteLine();

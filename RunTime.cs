@@ -9,6 +9,9 @@ namespace RacketSharp
 {
     static class RunTime
     {
+        private const BindingFlags METHOD_FLAGS =
+            BindingFlags.Public | BindingFlags.IgnoreCase | BindingFlags.IgnoreReturn | BindingFlags.Static | BindingFlags.Instance;
+
         public static LinkedList<Scope> Scopes = new LinkedList<Scope>();
 
         public static Dictionary<string, object> NativeMethods;
@@ -24,10 +27,12 @@ namespace RacketSharp
             Current = Scopes.Last;
         }
 
+
         /// <summary>
         /// Searches the scope for name, returning the first result (local->global)
         /// </summary>
         public static object SearchScope(string name)
+
         {
             var currNode = Current;
             // Stop when we can't go backwards through the node anymore.
@@ -58,15 +63,128 @@ namespace RacketSharp
             // string-format -> String.Format
             // string_builder-new -> new StringBuilder (LAAATER)
             // (string_builder-length builder) -> StringBuilder.Length
-            StringBuilder typeBuilder = new StringBuilder();
+            var names = Utils.GetCSharpStrings(name);
 
-            for (int i = 0; i < name.Length; i++)
+            // TODO keyword for instance methods!
+            // (.length "hello world") -> "hello world".getType().getThingie("length")
+            // (string-format "hello, {0}", "world")
+
+            // If we can't parse the string properly for some reason at this point we're done.
+            if (names.Length == 0) return null;
+
+            string methodName = names.Last();
+            Type type = null;
+
+            // Loop through all but the last method.
+            for (int i = 0; i < names.Length - 1; i++)
             {
+
                 if (name[i] == '-') break; //Perhaps we should just convert to '_' and let there be collisions?
                 typeBuilder.Append(name[i]);
+
+                // If the type doesn't exist, it's the first time, get the base type.
+                if (type == null)
+                {
+                    // Search the type system for the type, using the System prefix.
+                    // TODO add in searches for referenced assemblies.
+                    type = Type.GetType("System." + names[0], false, false); // TODO WE CAN IGNORE CASE!!!1!!!
+                    // TODO exceptions
+                    if (type == null) throw new TypeAccessException("Could not get type");
+                    continue;
+                }
+                else if (names.Length > 2)
+                {
+                    // First, try to get a nested type. Usually used for l
+                    var subType = type.GetTypeInfo().GetNestedType(names[i], BindingFlags.IgnoreCase | BindingFlags.Public);
+                    if (subType != null)
+                    {
+                        type = subType; continue;
+                    }
+                    else throw new TypeAccessException("Could not get nested type");
+                }
+
             }
 
-            return null;
+            // Get method information.
+            // TODO make arguments and types clearer, since arguments have values
+            // we are quite capable of doing that.
+            MethodInfo methodInfo = null;
+            try
+            {
+                methodInfo = type.GetMethod(methodName, METHOD_FLAGS);
+            }
+            catch (AmbiguousMatchException ex)
+            {
+                var members = type.GetMember(methodName);
+                
+                foreach (var member in members)
+                {
+                    if (member is MethodInfo)
+                    {
+                        var method = member as MethodInfo;
+
+                        // For now, ignore generic methods.
+                        if (method.IsGenericMethod) continue;
+                        var parameters = method.GetParameters();
+
+                        // Match not found.
+                        if (parameters.Length != arguments.Length) continue;
+
+                        // break 2;
+                        bool shouldBreak = false;
+
+                        for (int i = 0; i < parameters.Length; i++)
+                        {
+                            if (!arguments[i].GetType().IsAssignableFrom(arguments[i].GetType()))
+                            {
+                                shouldBreak = true; break;
+                            }
+                        }
+                        if (shouldBreak) break;
+                        
+                        // else we have found a method in method.
+
+                        if (method.IsStatic)
+                        {
+                            return method.Invoke(null, arguments);
+                        }
+                        else // method is instance
+                        {
+                            return method.Invoke(arguments[0], arguments.Skip(1).ToArray());
+                        }
+                    }
+                    else if (member is FieldInfo)
+                    {
+                        var field = member as FieldInfo;
+                    }
+                    else if (member is PropertyInfo)
+                    {
+                        var prop = member as PropertyInfo;
+                    }
+                }
+            }
+            // Note: this did not work the first time.
+                //null, arguments.ToList().ConvertAll(a => a.GetType()).ToArray(), null);
+            
+            // TODO SEARCH FOR PROPERTIES AND FIELDS AS WELL!!!!
+            if (methodInfo == null) throw new MissingMethodException("No method found!");
+
+            if (methodInfo.IsGenericMethod) throw new NotImplementedException("Type generics are not implemented at this time.");
+
+            // TODO add constructor search!!
+            // Should return a ConstructorInfo instead and be eval'd first if methodName == new.
+            if (methodInfo.IsConstructor)
+            {
+                return null; // ((ConstructorInfo)methodInfo).Invoke(arguments);
+            }
+            else if (methodInfo.IsStatic)
+            {
+                return methodInfo.Invoke(null, arguments);
+            }
+            else // methodInfo is instance
+            {
+                return methodInfo.Invoke(arguments[0], arguments.Skip(1).ToArray());
+            }
         }
 
         public static FunctionInfo GetFunction(string name)
