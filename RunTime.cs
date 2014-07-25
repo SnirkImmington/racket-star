@@ -9,8 +9,8 @@ namespace RacketSharp
 {
     static class RunTime
     {
-        private static const BindingFlags METHOD_FLAGS = 
-            BindingFlags.Public | BindingFlags.IgnoreCase | BindingFlags.IgnoreReturn | BindingFlags.Static | BindingFlags.Instance
+        private const BindingFlags METHOD_FLAGS =
+            BindingFlags.Public | BindingFlags.IgnoreCase | BindingFlags.IgnoreReturn | BindingFlags.Static | BindingFlags.Instance;
 
         public static LinkedList<Scope> Scopes = new LinkedList<Scope>();
 
@@ -166,8 +166,6 @@ namespace RacketSharp
             {
                 return methodInfo.Invoke(arguments[0], arguments.Skip(1).ToArray());
             }
-
-            //return null;
         }
 
         public static FunctionInfo GetFunction(string name) { return null; }

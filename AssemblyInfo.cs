@@ -41,7 +41,6 @@ using System.Runtime.InteropServices;
     //(used if a resource is not found in the page, 
     // app, or any theme specific resource dictionaries)
 )]
-
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("e0ac0914-d9e9-4779-bde4-a91e736dd17b")]
 
