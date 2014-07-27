@@ -15,9 +15,14 @@ namespace RacketSharp
             Console.WriteLine("Let's make a racket.");
             Console.WriteLine();
 
+            // Keep the streak
             Console.WriteLine(Utils.ToCSharpString("hello_world_I_am_C_sharp"));
 
             values = new Dictionary<string, object>();
+
+            // (define (strings (list-new -string)))
+            // (define (strings (list 
+            // var strings = List<string>
 
             while (true)
             {
