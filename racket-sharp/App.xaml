@@ -1,0 +1,16 @@
+﻿<Application x:Class="racket_sharp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <Style x:Key="CodeBox" TargetType="RichTextBox">
+            
+        </Style>
+        <Style x:Key="HistoryBox" TargetType="RichTextBox" BasedOn="{StaticResource CodeBox}">
+            
+        </Style>
+        <Style x:Key="InputBox" TargetType="RichTextBox" BasedOn="{StaticResource CodeBox}">
+            
+        </Style>
+    </Application.Resources>
+</Application>
