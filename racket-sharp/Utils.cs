@@ -143,21 +143,6 @@ namespace racket_sharp
                 default: return input;
 
             }
-            else if (dialect == LanguageDialect.RacketSharpSnirk)
-            {
-                switch (input)
-                {
-                    case "mod": return "op_Modulus";
-
-                    case "and": return "op_And";
-                    case "or": return "op_Or";
-
-                    case "bitand": return "op_BitwiseAnd";
-                    case "bitor": return "op_BitwiseOr";
-
-                    case "xor": return "op_ExclusiveOr";
-                }
-            }
             
             return input;
         }
