@@ -27,7 +27,15 @@ namespace racket_sharp
         }
         public override object GetValue()
         {
-            return null;
+            var conditionalObj = Conditional.GetValue();
+
+            if (conditionalObj is bool)
+            {
+                if ((bool)conditionalObj)
+                    return TrueExpression.GetValue();
+                return FalseExpression.GetValue();
+            }
+            throw new InvalidOperationException("Conditional statement must be boolean");
         }
     }
 

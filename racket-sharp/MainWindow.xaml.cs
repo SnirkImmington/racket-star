@@ -24,6 +24,8 @@ namespace racket_sharp
         {
             InitializeComponent();
 
+            Title = "Untitled - Prof. " + Utils.λ;
+
             try
             {
                 HistoryBox.AppendText("(string-length \"hello, world\") = " + RunTime.GetVariableValue("string-length", new object[] { "hello, world" }).ToString());

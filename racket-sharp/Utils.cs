@@ -12,6 +12,11 @@ namespace racket_sharp
     public static class Utils
     {
         /// <summary>
+        /// The string "λ♯"
+        /// </summary>
+        public const string λ = "λ♯";
+
+        /// <summary>
         /// Capitalizes a string.
         /// </summary>
         /// <param name="input">The string to capitalize</param>

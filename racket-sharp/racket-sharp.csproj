@@ -55,6 +55,9 @@
   <PropertyGroup>
     <StartupObject>racket_sharp.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>racket-sharp icon 1.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -77,11 +80,18 @@
     </ApplicationDefinition>
     <Compile Include="Dialects.cs" />
     <Compile Include="Exceptions.cs" />
+    <Compile Include="GUI\IconDock.xaml.cs">
+      <DependentUpon>IconDock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RunTime.cs" />
     <Compile Include="Syntax\Basic Syntax.cs" />
     <Compile Include="Syntax\Function Syntax.cs" />
     <Compile Include="Syntax\Language Core Syntax.cs" />
     <Compile Include="Utils.cs" />
+    <Page Include="GUI\IconDock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -139,8 +149,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="GUI\" />
+    <Resource Include="racket-sharp icon 1.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

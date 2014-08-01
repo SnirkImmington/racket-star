@@ -4,6 +4,22 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <Style x:Key="CodeBox" TargetType="RichTextBox">
+            <!-- Accept keys -->
+            <Setter Property="AcceptsTab" Value="True"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="IsInactiveSelectionHighlightEnabled" Value="True"/>
+            
+            <!-- Font -->
+            <Setter Property="FontFamily" Value="Consolas"/>
+            <Setter Property="FontSize" Value="13"/>
+            
+            <!-- Border -->
+            <Setter Property="BorderBrush" Value="AliceBlue"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            
+            <!-- Padding -->
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Margin" Value="1"/>
             
         </Style>
         <Style x:Key="HistoryBox" TargetType="RichTextBox" BasedOn="{StaticResource CodeBox}">
@@ -11,6 +27,26 @@
         </Style>
         <Style x:Key="InputBox" TargetType="RichTextBox" BasedOn="{StaticResource CodeBox}">
             
+        </Style>
+        
+        <Style x:Key="DockButton" TargetType="Button">
+            
+            <!-- Margin and padding -->
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Margin" Value="2"/>
+            
+            <!-- Border and background -->
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="0.448"/>
+                        <GradientStop Color="#FFDDDDDD" Offset="0.715"/>
+                        <GradientStop Color="#FFCDCDCD" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Application.Resources>
 </Application>
