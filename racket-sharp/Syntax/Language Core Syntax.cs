@@ -39,9 +39,31 @@ namespace racket_sharp
         }
     }
 
+    /// <summary>
+    /// Provides special syntax to loop with a number.
+    /// </summary>
     class ForLoopConditionalSyntax : ForConditionalSyntax
     {
-        //public Function<int> maximum;
+        /// <summary>
+        /// Number for maximum value
+        /// </summary>
+        public SyntaxNode GetMaximum;
+
+        /// <summary>
+        /// Body of loop
+        /// </summary>
+        public SyntaxNode IterationOperation;
+
+        public override object GetValue()
+        {
+            int index = 0;
+
+            while (true)
+            {
+                var maxObj = GetMaximum.GetValue();
+
+                if (!maxObj is int) throw new ArgumentException("")
+        }
     }
 
     class ForConditionalSyntax : SyntaxNode
