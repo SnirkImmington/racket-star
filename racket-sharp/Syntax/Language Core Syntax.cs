@@ -60,7 +60,6 @@ namespace racket_sharp
     /// <summary>
     /// Provides special syntax to loop with a number.
     /// </summary>
-    [Serializable]
     class ForLoopConditionalSyntax : ForLoopSyntax
     {
         /// <summary>
