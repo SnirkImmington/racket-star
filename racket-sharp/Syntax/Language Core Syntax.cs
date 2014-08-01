@@ -9,7 +9,6 @@ namespace racket_sharp
     /// <summary>
     /// Syntax node for if statements.
     /// </summary>
-    [Serializable]
     class IfConditionalSyntax : SyntaxNode
     {
         /// <summary>
@@ -99,11 +98,19 @@ namespace racket_sharp
     }
 
     /// <summary>
+    /// Syntax for for loops
+    /// </summary>
+    class ForVariableDeclarationSyntax : SyntaxNode
+    {
+
+    }
+
+    /// <summary>
     /// Syntax for looping over a range 
     /// </summary>
     class ForRangeConditionalSyntax : ForLoopSyntax
     {
-
+        
     }
 
     /// <summary>
