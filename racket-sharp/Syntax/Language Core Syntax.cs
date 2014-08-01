@@ -62,7 +62,7 @@ namespace racket_sharp
     /// Provides special syntax to loop with a number.
     /// </summary>
     [Serializable]
-    class ForLoopConditionalSyntax
+    class ForLoopConditionalSyntax : ForLoopSyntax
     {
         /// <summary>
         /// Number for maximum value
@@ -95,6 +95,51 @@ namespace racket_sharp
 
                 IterationOperation.GetValue();
             }
+        }
+    }
+
+    /// <summary>
+    /// Syntax for looping over a range 
+    /// </summary>
+    class ForRangeConditionalSyntax : ForLoopSyntax
+    {
+
+    }
+
+    /// <summary>
+    /// For syntax with three parts:
+    /// variable creation
+    /// loop check
+    /// loop action
+    /// </summary>
+    class ForCStyleSyntax : ForLoopSyntax
+    {
+        /// <summary>
+        /// Syntax of first part of node (i = 0)
+        /// </summary>
+        public SyntaxNode VariableCreationNode;
+        /// <summary>
+        /// Syntax of second part of node (i &lt; length)
+        /// </summary>
+        public SyntaxNode IncrementNode;
+        /// <summary>
+        /// Syntax of third part of node (i++)
+        /// </summary>
+        public SyntaxNode FinishNode;
+
+        /// <summary>
+        /// Syntax of the loop body.
+        /// </summary>
+        public SyntaxNode LoopBody;
+
+        public override object GetValue()
+        {
+            object value = null;
+            for (VariableCreationNode.GetValue(); (bool)IncrementNode.GetValue(); FinishNode.GetValue())
+            {
+                value = LoopBody.GetValue();
+            }
+            return value;
         }
     }
 }
