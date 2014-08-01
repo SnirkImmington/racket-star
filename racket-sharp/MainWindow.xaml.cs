@@ -28,12 +28,13 @@ namespace racket_sharp
 
             try
             {
-                HistoryBox.AppendText("(string-length \"hello, world\") = " + RunTime.GetVariableValue("string-length", new object[] { "hello, world" }).ToString());
+                //HistoryBox.AppendText( typeof(int).IsAssignableFrom(typeof(long)).ToString() );
+                //HistoryBox.AppendText("(string-length \"hello, world\") = " + RunTime.GetVariableValue("string-length", new object[] { "hello, world" }).ToString());
                 //TheLabel.Content = RunTime.GetVariableValue("string-format", new object[] { "hello, {0}", new object[] { "world" } }).ToString();
             }
             catch (Exception ex)
             {
-                //TheLabel.Content = ex.ToString();
+                HistoryBox.AppendText(ex.ToString());
             }
         }
     }

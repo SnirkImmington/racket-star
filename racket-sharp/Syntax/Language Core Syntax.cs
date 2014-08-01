@@ -47,7 +47,7 @@ namespace racket_sharp
         /// <summary>
         /// Number for maximum value
         /// </summary>
-        public SyntaxNode GetMaximum;
+        public SyntaxNode Maximum;
 
         /// <summary>
         /// Body of loop
@@ -56,13 +56,20 @@ namespace racket_sharp
 
         public override object GetValue()
         {
-            int index = 0;
+            object counter;
+            var startMax = (IComparable)Maximum.GetValue();
+
+            // Create new counter of proper type initialized to zero.
+            counter = startMax.GetType().GetConstructor(Type.EmptyTypes).Invoke(null) as IComparable;
 
             while (true)
             {
-                var maxObj = GetMaximum.GetValue();
+                var comparison = startMax.CompareTo(counter);
 
-                if (!maxObj is int) throw new ArgumentException("")
+                if (comparison == 0) return IterationOperation.GetValue();
+
+                IterationOperation.GetValue();
+            }
         }
     }
 
