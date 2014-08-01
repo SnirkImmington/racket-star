@@ -6,25 +6,36 @@ using System.Threading.Tasks;
 
 namespace racket_sharp
 {
-    class IfConditionalSyntaxNode : SyntaxNode
+    /// <summary>
+    /// Syntax node for if statements.
+    /// </summary>
+    [Serializable]
+    class IfConditionalSyntax : SyntaxNode
     {
         /// <summary>
         /// The expression to be checked against
         /// </summary>
-        public SyntaxNode Conditional; // (equals length 2)
+        public SyntaxNode Conditional;
         /// <summary>
         /// The expression to be evaluated if Conditional is true
         /// </summary>
-        public SyntaxNode TrueExpression; //
+        public SyntaxNode TrueExpression;
         /// <summary>
         /// The expression to be evaluated if Conditional is false
         /// </summary>
         public SyntaxNode FalseExpression;
 
-        public IfConditionalSyntaxNode(SyntaxNode conditional, SyntaxNode trueExpression, SyntaxNode falseExpression)
+        /// <summary>
+        /// Constructor with assign-arguments.
+        /// </summary>
+        public IfConditionalSyntax(SyntaxNode conditional, SyntaxNode trueExpression, SyntaxNode falseExpression)
         {
             Conditional = conditional; TrueExpression = trueExpression; FalseExpression = falseExpression;
         }
+        
+        /// <summary>
+        /// Evaluates the if - conditional == true ? TrueExpression : FalseExpression
+        /// </summary>
         public override object GetValue()
         {
             var conditionalObj = Conditional.GetValue();
@@ -40,9 +51,18 @@ namespace racket_sharp
     }
 
     /// <summary>
+    /// Abstract class for all for loop syntaxes.
+    /// </summary>
+    abstract class ForLoopSyntax : SyntaxNode
+    {
+        // TODO something for iterators?
+    }
+
+    /// <summary>
     /// Provides special syntax to loop with a number.
     /// </summary>
-    class ForLoopConditionalSyntax : ForConditionalSyntax
+    [Serializable]
+    class ForLoopConditionalSyntax
     {
         /// <summary>
         /// Number for maximum value
@@ -54,8 +74,13 @@ namespace racket_sharp
         /// </summary>
         public SyntaxNode IterationOperation;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public override object GetValue()
         {
+            // Should the max value be cached or reevaluated every time?
             object counter;
             var startMax = (IComparable)Maximum.GetValue();
 
@@ -69,36 +94,6 @@ namespace racket_sharp
                 if (comparison == 0) return IterationOperation.GetValue();
 
                 IterationOperation.GetValue();
-            }
-        }
-    }
-
-    class ForConditionalSyntax : SyntaxNode
-    {
-        public SyntaxNode continueCheck;
-
-        public override object GetValue()
-        {
-            // Check continueCheck
-            var shouldContinueObj = continueCheck.GetValue();
-
-            if (!(shouldContinueObj is bool))
-                throw new Exception("Cmon man");
-
-            // Casting is done later.
-            return shouldContinueObj;
-        }
-    }
-
-    class ForExpressionSyntax : SyntaxNode
-    {
-        public ForConditionalSyntax condition;
-
-        public override object GetValue()
-        {
-            while (true)
-            {
-                var value = condition.GetValue();
             }
         }
     }

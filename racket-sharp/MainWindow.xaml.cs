@@ -24,7 +24,7 @@ namespace racket_sharp
         {
             InitializeComponent();
 
-            Title = "Untitled - Prof. " + Utils.λ;
+            Title = "Untitled - ProfRacketSharp";
 
             try
             {

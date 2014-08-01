@@ -11,6 +11,7 @@ namespace racket_sharp
     /// Base class for all syntax nodes. <br/>
     /// Each syntax node needs only to ultimately return a value.
     /// </summary>
+    [Serializable]
     abstract class SyntaxNode
     {
         /// <summary>
@@ -24,6 +25,7 @@ namespace racket_sharp
     /// SyntaxNode for chars or strings or ints/floats/doubles
     /// which are known at compile time.
     /// </summary>
+    [Serializable]
     class LiteralSyntaxNode : SyntaxNode
     {
         /// <summary>
@@ -59,6 +61,7 @@ namespace racket_sharp
     /// Syntax of function invocations -
     /// ((+ (string-length text) 3)
     /// </summary>
+    [Serializable]
     class FunctionInvocationSyntaxNode : SyntaxNode
     {
         /// <summary>
@@ -91,6 +94,7 @@ namespace racket_sharp
     /// Syntax for an invocation of a C# function.
     /// We could save this so that there isn't a search every time.
     /// </summary>
+    [Serializable]
     class NativeFunctionInvocationSyntaxNode : SyntaxNode
     {
         /// <summary>
@@ -107,6 +111,7 @@ namespace racket_sharp
     /// <summary>
     /// Cache node for native invocations?
     /// </summary>
+    [Serializable]
     class NativeMemberInvocationSyntaxNode : SyntaxNode
     {
         public MemberInfo info;

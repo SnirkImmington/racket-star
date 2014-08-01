@@ -11,6 +11,7 @@ namespace racket_sharp.Syntax
     /// This object will be added to the lookup tree to be later called
     /// via FunctionInvocationSyntaxNode
     /// </summary>
+    [Serializable]
     class FunctionInfo
     {
         public string Name;
@@ -37,6 +38,7 @@ namespace racket_sharp.Syntax
         }
     }
 
+    [Serializable]
     class ParameterInfo
     {
         public string Name;
@@ -46,6 +48,7 @@ namespace racket_sharp.Syntax
     /// <summary>
     /// Syntax node used for (define (name arg arg) body body)
     /// </summary>
+    [Serializable]
     class DefineDeclarationSyntaxNode : SyntaxNode
     {
         /// <summary>
