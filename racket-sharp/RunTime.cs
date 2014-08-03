@@ -58,7 +58,6 @@ namespace racket_sharp
             Current = Scopes.Last;
         }
 
-
         /// <summary>
         /// Searches the scope for name, returning the first result (local->global)
         /// </summary>
@@ -87,7 +86,7 @@ namespace racket_sharp
         /// <param name="name">Name of method/field</param>
         /// <param name="arguments">Arguments to method/object to access.</param>
         /// <returns></returns>
-        public static object GetVariableValue(string name, object[] arguments)
+        public static object GetVariableValue(string name, object[] arguments, Type[] typeArguments)
         {
             #region TODO search the local stack for the variables
 
@@ -120,9 +119,9 @@ namespace racket_sharp
                 var argType = arguments[0].GetType();
 
                 // Search for member.
-                var typeMembers = argType.GetMember(names.Last().Substring(1), SEARCH_FLAGS);
+                var dotMembers = argType.GetMember(names.Last().Substring(1), SEARCH_FLAGS);
 
-                return GetReflectionValue(arguments, typeMembers);
+                return GetReflectionValue(arguments, typeArguments, dotMembers);
 
             }
 
@@ -191,7 +190,7 @@ namespace racket_sharp
             var members = type.GetMember(methodName, MEMBER_TYPES, SEARCH_FLAGS);
 
             // Use the subroutine to return the value.
-            return GetReflectionValue(arguments, members);
+            return GetReflectionValue(arguments, typeArguments, members);
 
             #endregion
         }
@@ -202,7 +201,7 @@ namespace racket_sharp
         /// <param name="arguments">Arguments to a method.</param>
         /// <param name="members">Members to search.</param>
         /// <returns>Reflectively invoked C# method/property/field.</returns>
-        public static object GetReflectionValue(object[] arguments, params MemberInfo[] members)
+        public static object GetReflectionValue(object[] arguments, Type[] typeArguments, MemberInfo[] members)
         {
             foreach (var member in members)
             {
@@ -212,9 +211,30 @@ namespace racket_sharp
                     // Get method info
                     var method = member as MethodInfo;
                     var parameters = method.GetParameters();
-
+                    
                     // break 2 #thestruggle
                     bool isLegit = true;
+
+                    // Handle the generics now
+                    if (method.IsGenericMethod)
+                    {
+                        // Get the required generic arguments
+                        var types = method.GetGenericArguments();
+
+                        // TODO include possible type methods in an error thing.
+                        if (types.Length != typeArguments.Length)
+                        {
+                            // Get the declaring type for analysis
+                            var declaring = method.DeclaringType;
+                            // TODO I have no idea if this happens/what to do about it. I don't think lambdas can be generic.
+                            if (declaring == null) continue;
+
+
+                        }
+
+                        // Convert the method if we can confirm the types then
+                        method = method.MakeGenericMethod(typeArguments);
+                    }
 
                     // Different method types
                     if (method.IsStatic)
