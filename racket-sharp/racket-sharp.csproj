@@ -87,6 +87,8 @@
     <Compile Include="Syntax\Basic Syntax.cs" />
     <Compile Include="Syntax\Function Syntax.cs" />
     <Compile Include="Syntax\Language Core Syntax.cs" />
+    <Compile Include="Syntax\racket-sharp-racket Syntax.cs" />
+    <Compile Include="Syntax\RacketSharpSharp Syntax.cs" />
     <Compile Include="Testing.cs" />
     <Compile Include="Utils.cs" />
     <Page Include="GUI\IconDock.xaml">

@@ -6,20 +6,28 @@ using System.Threading.Tasks;
 
 namespace racket_sharp
 {
-    class DataNotFoundException : Exception
+    abstract class RacketException : Exception
     {
-        public string SearchText;
-
-        public DataNotFoundException(string text)
+        public string GetRuntimeErrorLog()
         {
-            SearchText = text;
+            return null;
         }
+
+        public RacketException(string message) : base(message) { }
     }
 
-    class ContractViolationException : ArgumentException
+    class DataNotFoundException : RacketException
+    {
+        public DataNotFoundException(string message) : base(message) { }
+    }
+
+    class ContractViolationException : RacketException
     {
 
     }
 
-    
+    class InvalidSyntaxException : RacketException
+    {
+        public InvalidSyntaxException(string message) : base(message) { }
+    }
 }

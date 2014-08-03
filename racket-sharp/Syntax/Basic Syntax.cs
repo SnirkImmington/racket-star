@@ -19,6 +19,23 @@ namespace racket_sharp
         /// </summary>
         /// <returns></returns>
         public abstract object GetValue();
+
+        /// <summary>
+        /// Gets the objects value with a specific type, throws an exception if it cannot be obtained.
+        /// </summary>
+        /// <typeparam name="T">Type of value to get</typeparam>
+        /// <returns>A casted object of type T</returns>
+        /// <exception cref="InvalidSyntaxException">
+        /// If the value is not actually a T
+        /// </exception>
+        public T GetValue<T>()
+        {
+            var value = GetValue();
+
+            if (value is T) return (T)value;
+
+            throw new InvalidSyntaxException("GetValue was expected to return a " + typeof(T).ToString() + ", returned a " + value.GetType().ToString() + ".");
+        }
     }
 
     /// <summary>
@@ -38,8 +55,10 @@ namespace racket_sharp
         /// </summary>
         public object Value;
 
-        // We will compile "strings", 'strings', chars ('c'),
-        // numbers as ints, floats or doubles for C# interopability
+        ///<summary>
+        /// We will compile "strings", 'strings', chars ('c'),
+        /// numbers as ints, floats or doubles for C# interopability
+        /// </summary>
         public LiteralSyntaxNode(string type, object @value)
         {
             // value is a C# keyword, @value is a valid
@@ -68,7 +87,8 @@ namespace racket_sharp
         /// The name of the function being invoked.
         /// </summary>
         public string Name;
-        // Yea I feel like we'll have some subclass for these sometime
+
+        // Depending on the dialect these could be different classes.
         public SyntaxNode[] Parameters;
 
         public FunctionInvocationSyntaxNode(string functionName, SyntaxNode[] parameters)
