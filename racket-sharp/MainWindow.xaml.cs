@@ -33,29 +33,33 @@ namespace racket_sharp
                 //HistoryBox.AppendText("(string-length \"hello, world\") = " + RunTime.GetVariableValue("string-length", new object[] { "hello, world" }).ToString());
                 //TheLabel.Content = RunTime.GetVariableValue("string-format", new object[] { "hello, {0}", new object[] { "world" } }).ToString();
 
-                var type = typeof(TestClass<foo>);
-                var methodInfo = type.GetMethod("getValue");
+                RunTime.AddBasicAssemblies();
 
-                if (methodInfo.IsGenericMethod)
-                {
-                    var types = methodInfo.GetGenericArguments();
-                    var genericType = types[0];
-                    if (types[0].GenericParameterPosition != -1)
-                    {
-                        if (genericType.IsGenericParameter)
-                        {
+                var msCoreLib = RunTime.ReferencedAssemblies[0];
 
-                        }
-                    }
-                    var length = types.Length;
-                    methodInfo = methodInfo.MakeGenericMethod(new Type[] { typeof(string) });
-                }
-                methodInfo.Invoke(null, null);
+                var listType = typeof(List<>);
+                var name = listType.FullName;
+                var assemName = listType.AssemblyQualifiedName;
+
+                WriteLine(name + ", " + assemName);
+
+                var type = RunTime.GetTypeFromAssembly(msCoreLib, "List", true);
+
+                var list = (List<int>)RunTime.GetVariableValue("list-new", new object[] { }, new Type[] { typeof(int) });
+
+                list.AddRange(new int[] { 1, 2, 3, 4, 5 });
+
+                WriteLine(RunTime.GetVariableValue("list-get", new object[] { list, 3}, new Type[] {}).ToString());
             }
             catch (Exception ex)
             {
                 HistoryBox.AppendText(ex.ToString());
             }
+        }
+
+        public void WriteLine(string message)
+        {
+            HistoryBox.AppendText(message + "\n");
         }
     }
 

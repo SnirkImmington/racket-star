@@ -152,7 +152,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Notes.txt" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="racket-sharp icon 1.ico" />
   </ItemGroup>

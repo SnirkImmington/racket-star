@@ -1,4 +1,12 @@
 ﻿Missing from compilations:
-================
+==========================
 1. Nested class declarations won't have generic parameters, i.e. "ParentFoo<string>.ChildFoo<int>.SomeMethod<bool>()" is not possible.
 2. Array syntax not implemented.
+3. Probably not going to implement the "new" keyword for function/field creation
+4. Probably not going to implement extension methods.
+
+
+Dialect Differences in the Code
+===============================
+1. NO TYPE GENERICS IN RACKET
+2. Full reflection type creation in C#

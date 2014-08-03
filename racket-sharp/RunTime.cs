@@ -24,6 +24,10 @@ namespace racket_sharp
         private const MemberTypes MEMBER_TYPES =
             MemberTypes.Field | MemberTypes.Method | MemberTypes.Property;
 
+        public static List<Assembly> ReferencedAssemblies = new List<Assembly>();
+
+        public static Dictionary<Assembly, List<String>> AssembliesAndNamespaces = new Dictionary<Assembly, List<string>>();
+
         /// <summary>
         /// The stack. A new scope is added every time a function or variable is created.
         /// </summary>
@@ -46,6 +50,14 @@ namespace racket_sharp
             typeof(float), typeof(double), typeof(object),
             typeof(LinkedList<dynamic>), typeof(LinkedList<object>)
         };
+
+        public static void AddBasicAssemblies()
+        {
+            ReferencedAssemblies.Add(Assembly.GetAssembly(typeof(string))); // System
+
+            AssembliesAndNamespaces.Add(ReferencedAssemblies[0], new List<string>(
+                new string[] { "System", "System.Collections.Generic" }));
+        }
 
         /// <summary>
         /// Initializes the runtime values.
@@ -137,10 +149,11 @@ namespace racket_sharp
 
             Type type = null;
 
+            //var searchName = (typeArguments.Length == 0) ? name : name + '`' + typeArguments[]
+
             // Loop through all but the last method.
             for (int i = 0; i < names.Length - 1; i++)
             {
-
                 if (name[i] == '-') break; //Perhaps we should just convert to '_' and let there be collisions?
                 //typeBuilder.Append(name[i]);
 
@@ -149,9 +162,15 @@ namespace racket_sharp
                 {
                     // Search the type system for the type, using the System prefix.
                     // TODO add in searches for referenced assemblies.
-                    type = Type.GetType("System." + names[0], false, false); // TODO WE CAN IGNORE CASE!!!1!!!
-                    // TODO exceptions
-                    if (type == null) throw new TypeAccessException("Could not get type");
+                    foreach (var assem in ReferencedAssemblies)
+                    {
+                        type = assem.GetType(names[0], false, false);
+                        // Try to get the type from the assembly, using a special assembly resolver for list`T` and such.
+                        //type = Type.GetType(assemName + '.' + names[0], null, GetTypeFromAssembly, false, false);
+
+                        if (type != null) break;
+                    }
+                    if (type == null) throw new TypeAccessException("Could not find type.");
                     continue;
                 }
                 else if (names.Length > 2)
@@ -176,7 +195,7 @@ namespace racket_sharp
             #region Invoke methods
 
             // We have the types, do the new check now.
-            if (methodName == "new")
+            if (methodName == "New")
             {
                 // ArgumentNull and Argument Exceptions should be okay
                 var constructor = type.GetConstructor(types);
@@ -229,11 +248,26 @@ namespace racket_sharp
                             // TODO I have no idea if this happens/what to do about it. I don't think lambdas can be generic.
                             if (declaring == null) continue;
 
+                            // If the type is generic try to use its generic parameters.
+                            // Here's how Type.IsGenericType works:
+                            // List<int> = isGenericType
+                            // List<T> = isGenericTypeDefinition
+                            if (declaring.IsGenericType) 
+                            {
+                                // Get its genericb arguments.
+                                var genericParams = declaring.GetGenericArguments();
 
+                                // For example, List<int>.Get<int> -> move the int over.
+                                if (genericParams.Length == types.Length)
+                                    method = method.MakeGenericMethod(genericParams);
+
+                                // Expected 3 type arguments: TKey, TValue, TSomething, got 2: int, string.
+                                else throw new InvalidTypeArgumentsException("");
+                            }
                         }
 
                         // Convert the method if we can confirm the types then
-                        method = method.MakeGenericMethod(typeArguments);
+                        else method = method.MakeGenericMethod(typeArguments);
                     }
 
                     // Different method types
@@ -302,6 +336,25 @@ namespace racket_sharp
 
             // If we looped through everything without returning, throw exception.
             throw new MissingMemberException("Can't find a matching method!");
+        }
+    
+        /// <summary>
+        /// Special handling of getting generic types from assemblies.
+        /// </summary>
+        /// <param name="assem">The assembly to search</param>
+        /// <param name="typeName">The name of the type</param>
+        /// <param name="ignoreCase">Whether to ignore case</param>
+        /// <returns></returns>
+        public static Type GetTypeFromAssembly(Assembly assem, string typeName, bool ignoreCase)
+        {
+            foreach (var type in assem.DefinedTypes)
+            {
+                if (type.Name == typeName)
+                {
+
+                }
+            }
+            return null;
         }
     }
 

@@ -30,4 +30,13 @@ namespace racket_sharp
     {
         public InvalidSyntaxException(string message) : base(message) { }
     }
+
+    #region Racket-Sharp-Sharp
+
+    class InvalidTypeArgumentsException : RacketException
+    {
+        public InvalidTypeArgumentsException(string message) : base(message) { }
+    }
+
+    #endregion
 }
