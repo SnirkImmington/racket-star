@@ -18,7 +18,7 @@ namespace racket_sharp
         /// Each syntax node should ultimately return a value.
         /// </summary>
         /// <returns></returns>
-        public abstract object GetValue();
+        public abstract object GetValue(bool runTime, LanguageDialect dialect);
 
         /// <summary>
         /// Gets the objects value with a specific type, throws an exception if it cannot be obtained.
@@ -28,9 +28,9 @@ namespace racket_sharp
         /// <exception cref="InvalidSyntaxException">
         /// If the value is not actually a T
         /// </exception>
-        public T GetValue<T>()
+        public T GetValue<T>(bool runTime, LanguageDialect dialect)
         {
-            var value = GetValue();
+            var value = GetValue(runTime, dialect);
 
             if (value is T) return (T)value;
 
@@ -70,7 +70,7 @@ namespace racket_sharp
         /// Returns the literal value
         /// </summary>
         /// <returns></returns>
-        public override object GetValue()
+        public override object GetValue(bool runTime, LanguageDialect dialect)
         {
             return Value;
         }
@@ -96,7 +96,7 @@ namespace racket_sharp
             Name = functionName; Parameters = parameters;
         }
 
-        public override object GetValue()
+        public override object GetValue(bool runTime, LanguageDialect dialect)
         {
 
             // Some code to get a function that we/runtime defined.
@@ -122,7 +122,7 @@ namespace racket_sharp
         /// </summary>
         public MethodInfo MethodInfo;
 
-        public override object GetValue()
+        public override object GetValue(bool runTime, LanguageDialect dialect)
         {
             return null;
         }
@@ -136,17 +136,13 @@ namespace racket_sharp
     {
         public MemberInfo info;
 
-        public override object GetValue()
+        public override object GetValue(bool runTime, LanguageDialect dialect)
         {
             if (info is PropertyInfo)
             {
 
             }
             if (info is FieldInfo)
-            {
-
-            }
-            if (info is MethodInfo)
             {
 
             }

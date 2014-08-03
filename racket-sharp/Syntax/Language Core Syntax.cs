@@ -35,17 +35,12 @@ namespace racket_sharp
         /// <summary>
         /// Evaluates the if - conditional == true ? TrueExpression : FalseExpression
         /// </summary>
-        public override object GetValue()
+        public override object GetValue(bool runTime, LanguageDialect dialect)
         {
-            var conditionalObj = Conditional.GetValue();
+            var conditional = Conditional.GetValue<bool>(runTime, dialect);
 
-            if (conditionalObj is bool)
-            {
-                if ((bool)conditionalObj)
-                    return TrueExpression.GetValue();
-                return FalseExpression.GetValue();
-            }
-            throw new InvalidOperationException("Conditional statement must be boolean");
+            if (conditional) return TrueExpression.GetValue(runTime, dialect);
+            return FalseExpression.GetValue(runTime, dialect);
         }
     }
 
@@ -76,11 +71,11 @@ namespace racket_sharp
         /// 
         /// </summary>
         /// <returns></returns>
-        public override object GetValue()
+        public override object GetValue(bool runTime, LanguageDialect dialect)
         {
             // Should the max value be cached or reevaluated every time?
             object counter;
-            var startMax = (IComparable)Maximum.GetValue();
+            var startMax = Maximum.GetValue<IComparable>(runTime, dialect);
 
             // Create new counter of proper type initialized to zero.
             counter = startMax.GetType().GetConstructor(Type.EmptyTypes).Invoke(null) as IComparable;
@@ -89,9 +84,9 @@ namespace racket_sharp
             {
                 var comparison = startMax.CompareTo(counter);
 
-                if (comparison == 0) return IterationOperation.GetValue();
+                if (comparison == 0) return IterationOperation.GetValue(runTime, dialect);
 
-                IterationOperation.GetValue();
+                IterationOperation.GetValue(runTime, dialect);
             }
         }
     }
@@ -101,7 +96,10 @@ namespace racket_sharp
     /// </summary>
     class ForVariableDeclarationSyntax : SyntaxNode
     {
-
+        public override object GetValue(bool runTime, LanguageDialect dialect)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>
@@ -109,7 +107,10 @@ namespace racket_sharp
     /// </summary>
     class ForRangeConditionalSyntax : ForLoopSyntax
     {
-        
+        public override object GetValue(bool runTime, LanguageDialect dialect)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     /// <summary>
@@ -138,12 +139,13 @@ namespace racket_sharp
         /// </summary>
         public SyntaxNode LoopBody;
 
-        public override object GetValue()
+        public override object GetValue(bool runTime, LanguageDialect dialect)
         {
+            // TODO for loops have their own stack. If runtime.
             object value = null;
-            for (VariableCreationNode.GetValue(); (bool)IncrementNode.GetValue(); FinishNode.GetValue())
+            for (VariableCreationNode.GetValue(runTime, dialect); IncrementNode.GetValue<bool>(runTime, dialect); FinishNode.GetValue(runTime, dialect))
             {
-                value = LoopBody.GetValue();
+                value = LoopBody.GetValue(runTime, dialect);
             }
             return value;
         }

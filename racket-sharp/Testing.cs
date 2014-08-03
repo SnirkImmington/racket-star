@@ -12,7 +12,7 @@ namespace racket_sharp
     class ValueTestingSyntaxNode : SyntaxNode
     {
         public object value;
-        public override object GetValue()
+        public override object GetValue(bool runTime, LanguageDialect dialect)
         {
             return value;
         }

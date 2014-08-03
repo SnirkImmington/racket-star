@@ -20,7 +20,7 @@ namespace racket_sharp
         /// <summary>
         /// Returns this.Type.
         /// </summary>
-        public override object GetValue()
+        public override object GetValue(bool runTime, LanguageDialect dialect)
         {
             return Type;
         }
@@ -55,6 +55,12 @@ namespace racket_sharp
         public SharpFieldDeclarationSyntax[] Fields;
 
         public SharpPropertyDeclarationSyntax[] Properties;
+
+        public override object GetValue(bool runTime, LanguageDialect dialect)
+        {
+            // TODO if runtime, add type to list
+            return null;
+        }
     }
 
     /// <summary>
@@ -75,22 +81,36 @@ namespace racket_sharp
 
     class SharpFieldDeclarationSyntax : SyntaxNode
     {
-
+        public override object GetValue(bool runTime, LanguageDialect dialect)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     class SharpPropertyDeclarationSyntax : SyntaxNode
     {
-
+        public override object GetValue(bool runTime, LanguageDialect dialect)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     class SharpConstructorDeclarationSyntax : SyntaxNode
     {
-
+        public override object GetValue(bool runTime, LanguageDialect dialect)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     class SharpMethodDeclarationSyntax : SyntaxNode
     {
         public FunctionInvocationSyntaxNode[] Functions;
+
+        public override object GetValue(bool runTime, LanguageDialect dialect)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     #endregion

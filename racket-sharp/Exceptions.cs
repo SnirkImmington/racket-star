@@ -23,7 +23,7 @@ namespace racket_sharp
 
     class ContractViolationException : RacketException
     {
-
+        public ContractViolationException(string message) : base(message) { }
     }
 
     class InvalidSyntaxException : RacketException

@@ -65,7 +65,7 @@ namespace racket_sharp.Syntax
         {
         }
 
-        public override object GetValue()
+        public override object GetValue(bool runTime, LanguageDialect dialect)
         {
             // Return an object that represents the function
             // It can then be added to the state and later called using name/params
