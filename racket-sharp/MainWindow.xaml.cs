@@ -33,6 +33,9 @@ namespace racket_sharp
                 //HistoryBox.AppendText("(string-length \"hello, world\") = " + RunTime.GetVariableValue("string-length", new object[] { "hello, world" }).ToString());
                 //TheLabel.Content = RunTime.GetVariableValue("string-format", new object[] { "hello, {0}", new object[] { "world" } }).ToString();
 
+                TestingMethods.GetMethodInfo(this, typeof(TestingMethods).GetMethod("foo"));
+
+                /*
                 RunTime.AddBasicAssemblies();
 
                 var msCoreLib = RunTime.ReferencedAssemblies[0];
@@ -50,6 +53,7 @@ namespace racket_sharp
                 list.AddRange(new int[] { 1, 2, 3, 4, 5 });
 
                 WriteLine(RunTime.GetVariableValue("list-get", new object[] { list, 3}, new Type[] {}).ToString());
+                */
             }
             catch (Exception ex)
             {

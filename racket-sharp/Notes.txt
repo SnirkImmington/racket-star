@@ -1,4 +1,8 @@
-﻿Missing from compilations:
+﻿General Notes
+=============
+Racket will use (new x args) for complex types in C#.
+
+Missing from compilations:
 ==========================
 1. Nested class declarations won't have generic parameters, i.e. "ParentFoo<string>.ChildFoo<int>.SomeMethod<bool>()" is not possible.
 2. Array syntax not implemented.
