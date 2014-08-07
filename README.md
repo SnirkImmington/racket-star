@@ -1,6 +1,6 @@
 λ* (racket-star)
 ==================
-**WIP** |Current version 0.0.3 alpha | Written in C#
+**WIP** | Current version 0.0.3 alpha | Written in C#
 
 A high-level [racket](http://racket-lang.org) interpreter, using the .NET runtime.
 
