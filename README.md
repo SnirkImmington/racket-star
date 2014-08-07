@@ -6,10 +6,10 @@ A high-level [racket](http://racket-lang.org) interpreter, using the .NET runtim
 
 This project is not finished. The current goal is to have a high-level racket syntaxed language using .NET reflection for the main libraries. racket-star will have two dialects:
 
-# λ♯ (RacketSharp)
+## λ♯ (RacketSharp)
 
 This variant will compile into .NET code. RacketSharp will use the .NET object structure, as well as having side effects and other C♯ features. High-level internal runtime with RacketSharp will still be supported.
 
-# λ' (racket-prime)
+## λ' (racket-prime)
 
 This dialect will more closely mirror racket, in syntax and function. Although the base libraries will use C♯ reflection, some names will be selectively changed and some features of C♯ and .NET will be blocked in order to more properly emulate racket. λ' will *not* be compatible with .NET; the ultimate goal is a language and library base identical to racket itself.
