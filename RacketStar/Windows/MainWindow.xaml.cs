@@ -24,18 +24,40 @@ namespace RacketStar
         public MainWindow()
         {
             InitializeComponent();
+
             // Set the title
             Title = "Untitled - " + Utils.Lambda + Utils.Star;
+            // Load old content
+            // Load user settings
+
+            // Events
+            HistoryBox.MouseLeftButtonUp += HistoryBox_MouseUp;
+
             // Create click button
             var button = GUI.GUItils.GetLinkButton(this, "Click here!");
+            button.Click += button_Click;
             WriteControl(button);
-            //LastEdited = HistoryBox.Document.ContentEnd;
         }
 
         void button_Click(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("You clicked the link!!1!!!");
         }
+
+        #region Events
+
+        public void HistoryBox_MouseUp(object sender, MouseEventArgs args)
+        {
+            var box = sender as RichTextBox; if (box == null) return;
+
+            if (box.Selection.IsEmpty)
+            {
+                InputBox.Focus();
+            }
+            
+        }
+
+        #endregion
 
         #region Controls/Utils
 

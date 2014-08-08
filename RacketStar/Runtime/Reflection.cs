@@ -28,7 +28,7 @@ namespace RacketStar.Runtime
             return assem.GetType(string.Format("{0}`{1}`", name, genericTypesLength), false, ignoreCase);
         }
 
-        public static object Get
+        
 
         /// <summary>
         /// Get the invocations/value of C# reflection info.

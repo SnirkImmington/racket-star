@@ -64,26 +64,5 @@ namespace RacketStar.GUI
             turn.Margin = new Thickness(0);
             return turn;
         }
-
-        public static Label GetLinkLabel(MainWindow window, string text, MouseButtonEventHandler onClick)
-        {
-            var turn = new Label();
-            turn.Style = (Style)window.FindResource("DocumentLinkLabel");
-            turn.MouseEnter += MakeMousePointy;
-            turn.MouseLeftButtonUp += onClick;
-            turn.MouseLeave += MakeMouseLeave;
-            turn.Content = GetHyperlinkBlock(text);
-            return turn;
-        }
-
-        public static void MakeMousePointy(object sender, MouseEventArgs args)
-        {
-            Mouse.SetCursor(Cursors.Hand);
-        }
-
-        public static void MakeMouseLeave(object sender, MouseEventArgs args)
-        {
-            Mouse.SetCursor(Cursors.Arrow);
-        }
     }
 }

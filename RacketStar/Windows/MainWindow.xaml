@@ -79,7 +79,7 @@
             </Grid.ColumnDefinitions>
             
             <Label Name="LanguageLabel" Style="{StaticResource LanguageLabel}" Grid.Row="1">RS</Label>
-            <RichTextBox Name="HistoryBox" Grid.Column="1" Style="{StaticResource HistoryBox}"/>
+            <RichTextBox Name="HistoryBox" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource HistoryBox}"/>
             <RichTextBox Name="InputBox" Grid.Column="1" Grid.Row="1" Style="{StaticResource InputBox}"/>
 
         </Grid>

@@ -80,7 +80,7 @@ namespace RacketStar.Runtime
             while (currNode != null)
             {
                 // Try to get the current node's variable
-                var variable = currNode.Value.GetVariableValue(name);
+                var variable = currNode.Value.GetVariable(name);
 
                 // If we can't, we need to go deeper.
                 if (variable == null)
@@ -133,7 +133,7 @@ namespace RacketStar.Runtime
                 // Search for member.
                 var dotMembers = argType.GetMember(names.Last().Substring(1), SEARCH_FLAGS);
 
-                return GetReflectionValue(arguments, typeArguments, dotMembers);
+                return Reflection.GetReflectionValue(arguments, typeArguments, dotMembers);
 
             }
 

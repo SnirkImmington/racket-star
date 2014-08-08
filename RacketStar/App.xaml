@@ -1,7 +1,7 @@
 ﻿<Application x:Class="RacketStar.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Windows/MainWindow.xaml">
     <Application.Resources>
         
         <!-- Basic style for RichTextBox with code. -->
@@ -9,7 +9,10 @@
             <!-- Accept keys -->
             <Setter Property="AcceptsTab" Value="True"/>
             <Setter Property="AcceptsReturn" Value="True"/>
+            
+            <!-- Document settings -->
             <Setter Property="IsInactiveSelectionHighlightEnabled" Value="True"/>
+            <Setter Property="IsDocumentEnabled" Value="True"/>
             
             <!-- Font -->
             <Setter Property="FontFamily" Value="Consolas"/>
@@ -27,8 +30,14 @@
         
         <!-- Style used for the main editing textboxes. -->
         <Style x:Key="HistoryBox" TargetType="RichTextBox" BasedOn="{StaticResource CodeBox}">
+            <!-- Border -->
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="BorderBrush" Value="#FF344BB4"/>
+            
+            <!-- Document -->
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="IsReadOnlyCaretVisible" Value="True"/>
+            <Setter Property="IsUndoEnabled" Value="False"/>
         </Style>
         
         <!-- Style used for input textboxes -->

@@ -10,12 +10,8 @@ namespace RacketStar.Runtime
     {
         public string Name { get; private set; }
 
-        public abstract object Invoke(LanguageDialect langauge, object[] parameters)
-        {
+        public abstract object Invoke(LanguageDialect langauge, object[] parameters);
 
-        }
-
-        public 
 
         public FunctionInfo(string name)
         {
