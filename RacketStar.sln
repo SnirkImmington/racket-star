@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "racket-star", "racket-star\racket-star.csproj", "{5ECB75D7-6B04-49BD-A0D3-A93133BBC522}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "racket-star", "RacketStar\RacketStar.csproj", "{5ECB75D7-6B04-49BD-A0D3-A93133BBC522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "racket-star-library", "racket-star-library\racket-star-library.csproj", "{EE991A4C-600E-4BEB-B131-0187E26BBE41}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "racket-star-library", "RacketStarLibrary\RacketStarLibrary.csproj", "{EE991A4C-600E-4BEB-B131-0187E26BBE41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
