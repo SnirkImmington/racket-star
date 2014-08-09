@@ -67,11 +67,17 @@ namespace RacketStar
 
         #region Control Methods
 
+        /// <summary>
+        /// Writes a HyperLink inline to the HistoryBox.
+        /// </summary>
+        /// <param name="text">Text of the link</param>
+        /// <param name="uri">URI to navigate to</param>
         public void WriteHyperLink(string text, Uri uri = null)
         {
             var link = new Hyperlink(new Run(text));
             link.NavigateUri = uri;
             link.ToolTip = uri.ToString();
+            link.IsEnabled = true;
             AppendInline(link);
         }
 
