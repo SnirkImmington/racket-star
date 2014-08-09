@@ -47,6 +47,7 @@ namespace RacketStar.GUI
             turn.Style = (Style)window.FindResource("DocumentButton");
             // Just disable the border brush.
             turn.BorderBrush = null;
+            turn.HorizontalAlignment = HorizontalAlignment.Left;
             // Set its content
             turn.Content = GetHyperlinkBlock(text);
             return turn;
@@ -62,6 +63,7 @@ namespace RacketStar.GUI
             turn.Orientation = Orientation.Horizontal;
             // Make the controls look nice
             turn.Margin = new Thickness(0);
+            turn.HorizontalAlignment = HorizontalAlignment.Left;
             return turn;
         }
     }

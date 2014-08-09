@@ -19,7 +19,7 @@
             <Setter Property="FontSize" Value="13"/>
             
             <!-- Border -->
-            <Setter Property="BorderBrush" Value="AliceBlue"/>
+            <Setter Property="BorderBrush" Value="#FF90F16B"/>
             <Setter Property="BorderThickness" Value="0"/>
             
             <!-- Padding -->
@@ -42,7 +42,7 @@
         
         <!-- Style used for input textboxes -->
         <Style x:Key="InputBox" TargetType="RichTextBox" BasedOn="{StaticResource CodeBox}">
-            
+            <Setter Property="BorderThickness" Value="0, 2, 0, 0"/>
         </Style>
         
         <!-- Unused style -->

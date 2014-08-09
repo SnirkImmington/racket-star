@@ -162,5 +162,7 @@ namespace RacketStar
             
             return input;
         }
+
+        public static string Format(this string input, params object[] args) { return string.Format(input, args); }
     }
 }

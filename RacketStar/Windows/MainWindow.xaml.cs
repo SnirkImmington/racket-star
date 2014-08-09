@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace RacketStar
 {
@@ -31,35 +32,48 @@ namespace RacketStar
             // Load user settings
 
             // Events
-            HistoryBox.MouseLeftButtonUp += HistoryBox_MouseUp;
+            HistoryBox.KeyDown += HistoryBox_KeyDown;
+            HistoryBox.SelectionChanged += HistoryBox_SelectionChanged;
 
             // Create click button
-            var button = GUI.GUItils.GetLinkButton(this, "Click here!");
-            button.Click += button_Click;
-            WriteControl(button);
-        }
-
-        void button_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("You clicked the link!!1!!!");
+            // Clear the document
+            HistoryBox.Document = new FlowDocument();
+            HistoryBox.AppendText("{0}{1} version {2} initialized. ".Format(Utils.Lambda, Utils.Star, Assembly.GetCallingAssembly().GetName().Version));
+            WriteHyperLink("Click here", new Uri("http://racket-lang.org/"));
+            HistoryBox.AppendText(" for Racket documentation.");
+            
         }
 
         #region Events
-
-        public void HistoryBox_MouseUp(object sender, MouseEventArgs args)
+        
+        void HistoryBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            var box = sender as RichTextBox; if (box == null) return;
-
-            if (box.Selection.IsEmpty)
-            {
-                InputBox.Focus();
-            }
-            
+            var box = sender as RichTextBox;
+            if (box.Selection.IsEmpty) InputBox.Focus();
+        }
+        
+        void HistoryBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Move the typing over to the input box
+            InputBox.Focus();
+            InputBox.RaiseEvent(e);
         }
 
         #endregion
 
-        #region Controls/Utils
+        #region Controls
+
+        #endregion
+
+        #region Control Methods
+
+        public void WriteHyperLink(string text, Uri uri = null)
+        {
+            var link = new Hyperlink(new Run(text));
+            link.NavigateUri = uri;
+            link.ToolTip = uri.ToString();
+            AppendInline(link);
+        }
 
         /// <summary>
         /// Add a WPF control to the history box.
@@ -67,20 +81,23 @@ namespace RacketStar
         /// <param name="trol">The control to add.</param>
         public void WriteControl(Control trol)
         {
-            // If the last block is a stackpanel, add it to the children.
-            var lastBlock = HistoryBox.Document.Blocks.LastBlock;
-            if (lastBlock is BlockUIContainer)
+            AppendInline(new InlineUIContainer(trol));
+        }
+
+        /// <summary>
+        /// Appends the inline control to HistoryBox in an inline fashion.
+        /// </summary>
+        /// <param name="inline"></param>
+        public void AppendInline(Inline inline)
+        {
+            var block = HistoryBox.Document.Blocks.LastBlock;
+            if (block == null || !(block is Paragraph))
             {
-                var container = ((BlockUIContainer)lastBlock).Child as StackPanel;
-                container.Children.Add(trol);
+                block = new Paragraph();
+                HistoryBox.Document.Blocks.Add(block);
             }
-            else // We need to add a new block for them.
-            {
-                var panel = GUI.GUItils.GetDocumentStackPanel();
-                panel.Children.Add(trol);
-                HistoryBox.Document.Blocks.Add(new BlockUIContainer(panel));
-            }
-            HistoryBox.CaretPosition = HistoryBox.Document.ContentEnd;
+            var para = block as Paragraph;
+            para.Inlines.Add(inline);
         }
 
         /// <summary>
