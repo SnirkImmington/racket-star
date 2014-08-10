@@ -36,6 +36,8 @@ namespace RacketStar.Runtime
         {
             // Split the node into arguments.
             var currStart = 0; // Use substrings instead of builders.
+            // Save the args as text for parsing at the end.
+            var strings = new List<string>();
             // Possible args
             var args = new List<SyntaxNode>();
             for (int i = 0; i < expression.Length; i++)
@@ -47,10 +49,16 @@ namespace RacketStar.Runtime
                 // If there's a sub expression beginning
                 else if (expression[i] == '(')
                 {
-                    // Start searching from the 
+                    // If there's an inner expression, can also assume that we're on the next arg.
+
+                    // Start searching from the beginning of the expression
                     var endIndex = FindExpression(expression, i+1);
-                    // Parse the inner syntax node (finding the close paren) and add to the args.
-                    args.Add(ParseExpression(expression.SubstringIndex(i, FindExpression(expression, i))));
+
+                    // Parse the inner syntax node (from i to the end) and add to the args.
+                    args.Add(ParseExpression(expression.SubstringIndex(i, endIndex)));
+
+                    // Continue around the expression.
+                    i = endIndex;
                 }
 
             }
