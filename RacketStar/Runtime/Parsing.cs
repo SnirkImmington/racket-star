@@ -49,7 +49,8 @@ namespace RacketStar.Runtime
                 {
                     // Start searching from the 
                     var endIndex = FindExpression(expression, i+1);
-                    args.Add(ParseExpression(expression.Substring()))
+                    // Parse the inner syntax node (finding the close paren) and add to the args.
+                    args.Add(ParseExpression(expression.SubstringIndex(i, FindExpression(expression, i))));
                 }
 
             }
