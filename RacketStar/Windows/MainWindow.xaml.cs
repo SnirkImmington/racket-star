@@ -38,7 +38,7 @@ namespace RacketStar
             // Create click button
             // Clear the document
             HistoryBox.Document = new FlowDocument();
-            HistoryBox.AppendText("{0}{1} version {2} initialized. ".Format(Utils.Lambda, Utils.Star, Assembly.GetCallingAssembly().GetName().Version));
+            HistoryBox.AppendText("{0}{1} version {2} initialized. ".Format(Utils.Lambda, Utils.Star, Assembly.GetExecutingAssembly().GetName().Version));
             WriteHyperLink("Click here", new Uri("http://racket-lang.org/"));
             HistoryBox.AppendText(" for Racket documentation.");
             
@@ -121,8 +121,6 @@ namespace RacketStar
         {
             LanguageLabel.Content = languageName;
         }
-
-
 
         #endregion
     }
