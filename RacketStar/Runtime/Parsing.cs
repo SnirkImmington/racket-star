@@ -48,20 +48,27 @@ namespace RacketStar.Runtime
             }
         }
 
-        private static string FindExpression(string text, int start)
+        /// <summary>
+        /// Gets the index of the end of a current parenthesis node.
+        /// </summary>
+        /// <param name="text">The text to parse</param>
+        /// <param name="start">Where to start looking</param>
+        /// <returns>The index of the close parenthesis.</returns>
+        private static int FindExpression(string text, int start)
         {
+            // Keep track of the current text, number
+            // of open/close parenthesis, and where we are.
             int count = 1, i = start;
-            var builder = new StringBuilder();
             for (; i < text.Length; i++)
             {
-                switch (text[i])
-                {
-                    case '(': count++; break;
-                    case ')': count--; break;
-                    default: builder.Append(text[i]); break;
-                }
+                // Keep track of how close we are 
+                // to being finished with the node
+                if (text[i] == '(') count++;
+                else if (text[i] == ')') count--;
 
-                if (count == 0) return builder.ToString();
+                // If we've matched the total parenthesis count
+                // return the index we fuond.
+                if (count == 0) return i;
             }
 
             // The text has been parsed but no matching parenthesis
