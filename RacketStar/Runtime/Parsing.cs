@@ -50,9 +50,9 @@ namespace RacketStar.Runtime
 
         private static string FindExpression(string text, int start)
         {
-            var count = 1;
+            int count = 1, i = start;
             var builder = new StringBuilder();
-            for (int i = start; i < text.Length; i++)
+            for (; i < text.Length; i++)
             {
                 switch (text[i])
                 {
@@ -63,7 +63,10 @@ namespace RacketStar.Runtime
 
                 if (count == 0) return builder.ToString();
             }
-            // Throw exception?
+
+            // The text has been parsed but no matching parenthesis
+            // Note that this should not happen in the IDE as it will match parenthesis
+            throw new MissingParenthesisException(start, i, "Unable to finish parsing method starting at " + start + ".");
         }
     }
 
