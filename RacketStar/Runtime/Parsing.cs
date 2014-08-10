@@ -14,17 +14,12 @@ namespace RacketStar.Runtime
             var current = new StringBuilder();
             for (int i = 0; i < text.Length; i++)
             {
-                if (text[i] == ')')
-                {
-                    for (int tillOpen = i; tillOpen >= 0; tillOpen++)
-                    {
-                        if (text[tillOpen] == '(')
-                        {
-                            var node = ParseExpression(text.Substring(tillOpen, i - tillOpen + 1));
-                        }
-                    }
-                }
+                // Eat sleep rave repeat
+                var expressionEnd = FindExpression(text, i);
+                nodes.Add(ParseExpression(text.Substring(i, expressionEnd)));
+                i = expressionEnd;
             }
+            return new CompileUnit(nodes.ToArray());
         }
 
         /// <summary>
