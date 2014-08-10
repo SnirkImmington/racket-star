@@ -44,12 +44,15 @@ namespace RacketStar.Runtime
             {
                 if (expression[i] == ' ')
                 {
-
+                    strings.Add(expression.Substring(currStart, i-1));
+                    currStart = i + 1;
                 }
                 // If there's a sub expression beginning
                 else if (expression[i] == '(')
                 {
                     // If there's an inner expression, can also assume that we're on the next arg.
+                    strings.Add(expression.Substring(currStart, i - 1));
+                    currStart = i + 1;
 
                     // Start searching from the beginning of the expression
                     var endIndex = FindExpression(expression, i+1);
