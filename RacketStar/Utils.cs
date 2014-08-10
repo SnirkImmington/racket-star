@@ -164,5 +164,21 @@ namespace RacketStar
         }
 
         public static string Format(this string input, params object[] args) { return string.Format(input, args); }
+
+        /// <summary>
+        /// Retrieves a substring from this instance.
+        /// The substring starts at the specified character position and ends at the finish character position.
+        /// If finish is greater than the length of the string an exception is thrown.
+        /// </summary>
+        /// <exception cref="ArgumentOutOfRangeException">If the index is greater than the length of the string</exception>
+        /// <param name="input"></param>
+        /// <param name="start"></param>
+        /// <param name="finish"></param>
+        /// <returns></returns>
+        public static string SubstringIndex(this string input, int start, int finish) 
+        {
+            if (finish > input.Length + 1) throw new ArgumentOutOfRangeException("The ending index must not be out of bounds of the string.");
+            return input.Substring(start, finish - start + 1); 
+        }
     }
 }

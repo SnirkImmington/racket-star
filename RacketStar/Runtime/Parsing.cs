@@ -35,15 +35,22 @@ namespace RacketStar.Runtime
         private static SyntaxNode ParseExpression(string expression)
         {
             // Split the node into arguments.
-            var current = new StringBuilder();
-            var args = new List<string>();
+            var currStart = 0; // Use substrings instead of builders.
+            // Possible args
+            var args = new List<SyntaxNode>();
             for (int i = 0; i < expression.Length; i++)
             {
                 if (expression[i] == ' ')
                 {
 
                 }
+                // If there's a sub expression beginning
                 else if (expression[i] == '(')
+                {
+                    // Start searching from the 
+                    var endIndex = FindExpression(expression, i+1);
+                    args.Add(ParseExpression(expression.Substring()))
+                }
 
             }
         }
