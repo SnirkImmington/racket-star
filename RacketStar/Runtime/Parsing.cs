@@ -14,6 +14,10 @@ namespace RacketStar.Runtime
             var current = new StringBuilder();
             for (int i = 0; i < text.Length; i++)
             {
+                // TODO
+                // 1. Watch for comments
+                // 2. Watch for and apply racketdocs
+
                 // Eat sleep rave repeat
                 var expressionEnd = FindExpression(text, i);
                 nodes.Add(ParseExpression(text.Substring(i, expressionEnd)));
@@ -89,6 +93,32 @@ namespace RacketStar.Runtime
             // Note that this should not happen in the IDE as it will match parenthesis
             throw new MissingParenthesisException(start, i, "Unable to finish parsing method starting at " + start + ".");
         }
+
+        private static int FindNextChar(char toFind)
+        {
+
+        }
+
+        /// <summary>
+        /// Goes from char to char, skpping over string literals.
+        /// </summary>
+        /// <param name="toFind"></param>
+        /// <param name="toCount"></param>
+        /// <returns></returns>
+        private static int FindStringEnding(string expression, int stringStart)
+        {
+            bool isEscaped = false;
+
+            for (int i = stringStart; i < expression.Length; i++)
+            {
+                if (expression[i] == '\\') isEscaped = !isEscaped;
+
+
+                
+            }
+        }
+
+        private static int FindCommentEnding
     }
 
     class CompileUnit
@@ -99,5 +129,10 @@ namespace RacketStar.Runtime
         {
             CompiledNodes = nodes;
         }
+    }
+
+    class SyntaxInfo
+    {
+
     }
 }
