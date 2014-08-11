@@ -89,9 +89,6 @@
     <Compile Include="Runtime\RunTime.cs" />
     <Compile Include="Runtime\Scope.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Settings\GUISettings.cs" />
-    <Compile Include="Settings\Settings.cs" />
-    <Compile Include="Settings\UserSettings.cs" />
     <Compile Include="Syntax\Basic Syntax.cs" />
     <Compile Include="Syntax\Function Syntax.cs" />
     <Compile Include="Syntax\Language Core Syntax.cs" />

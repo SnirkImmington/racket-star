@@ -1,7 +1,7 @@
 ﻿<Window x:Class="RacketStar.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="500" Width="900">
+        Title="MainWindow" Height="500" Width="900" Icon="/racket-sharp;component/GUI/racket-star icon 2.ico" Closed="OnClosed">
     <Grid>
         <!-- Spacing definitions -->
         <Grid.ColumnDefinitions>

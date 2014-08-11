@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,6 +31,7 @@ namespace RacketStar
             // Set the title
             Title = "Untitled - " + Utils.Lambda + Utils.Star;
 
+            /*
             // Load old content
             if (Properties.Settings.Default.Editor_LastFiles.Count != 0)
             {
@@ -48,9 +50,10 @@ namespace RacketStar
                 FileMenu.Items.Add(new Separator());
                 FileMenu.Items.Add(recentMenu);
             }
+            */
 
             // Apply settings to textboxes
-            HistoryBox.FontFamily = new FontFamily(Properties.Settings.Default.GUI_FontFamily);
+            //HistoryBox.FontFamily = new FontFamily(Properties.Settings.Default.GUI_FontFamily);
 
             // Events
             HistoryBox.KeyDown += HistoryBox_KeyDown;
@@ -143,6 +146,11 @@ namespace RacketStar
         }
 
         #endregion
+
+        private void OnClosed(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Save();
+        }
     }
 
     public class TabInfo
