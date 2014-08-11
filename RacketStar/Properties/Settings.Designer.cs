@@ -195,5 +195,16 @@ namespace RacketStar.Properties {
                 this["GUI_ColorComments"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection Editor_RecentFiles {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Editor_RecentFiles"]));
+            }
+            set {
+                this["Editor_RecentFiles"] = value;
+            }
+        }
     }
 }

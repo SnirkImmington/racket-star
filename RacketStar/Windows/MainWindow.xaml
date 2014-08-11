@@ -20,8 +20,8 @@
         </Grid.RowDefinitions>
 
         <!-- Menu on the top -->
-        <Menu Grid.ColumnSpan="4">
-            <MenuItem Header="_File">
+        <Menu Name="MeatsBackOnBoys" Grid.ColumnSpan="4">
+            <MenuItem Header="_File" Name="FileMenu">
                 <MenuItem Command="ApplicationCommands.Save"/>
                 <MenuItem Command="ApplicationCommands.SaveAs"/>
                 <Separator/>

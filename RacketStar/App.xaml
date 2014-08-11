@@ -14,8 +14,8 @@
             <Setter Property="IsInactiveSelectionHighlightEnabled" Value="True"/>
             <Setter Property="IsDocumentEnabled" Value="True"/>
             
-            <!-- Font -->
-            <Setter Property="FontFamily" Value="Consolas"/>
+            <!-- Font (family overridden in settings) -->
+            <Setter Property="FontFamily" Value="Resources."/>
             <Setter Property="FontSize" Value="13"/>
             
             <!-- Border -->

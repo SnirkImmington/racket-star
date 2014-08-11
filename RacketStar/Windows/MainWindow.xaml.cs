@@ -29,8 +29,28 @@ namespace RacketStar
 
             // Set the title
             Title = "Untitled - " + Utils.Lambda + Utils.Star;
+
             // Load old content
-            // Load user settings
+            if (Properties.Settings.Default.Editor_LastFiles.Count != 0)
+            {
+                
+            }
+
+            // Fill the menu
+            if (Properties.Settings.Default.Editor_RecentFiles.Count != 0)
+            {
+                var recentMenu = new MenuItem();
+                recentMenu.Header = "_Recent";
+                foreach (var file in Properties.Settings.Default.Editor_RecentFiles)
+                {
+                    recentMenu.Items.Add(file);
+                }
+                FileMenu.Items.Add(new Separator());
+                FileMenu.Items.Add(recentMenu);
+            }
+
+            // Apply settings to textboxes
+            HistoryBox.FontFamily = new FontFamily(Properties.Settings.Default.GUI_FontFamily);
 
             // Events
             HistoryBox.KeyDown += HistoryBox_KeyDown;
