@@ -12,6 +12,8 @@ namespace RacketStar
     /// </summary>
     public static class Utils
     {
+        #region Special chars
+
         /// <summary>
         /// The char λ
         /// </summary>
@@ -26,6 +28,10 @@ namespace RacketStar
         /// The char*
         /// </summary>
         public const char Star = '★';
+
+        #endregion
+
+        #region Languages
 
         /// <summary>
         /// Capitalizes a string.
@@ -87,6 +93,36 @@ namespace RacketStar
 
             return builder.ToString();
         }
+
+        public static string GetLanguageName(LanguageDialect dialect)
+        {
+            switch (dialect)
+            {
+                case LanguageDialect.RacketStar:
+                    return "" + Lambda + Star;
+
+                case LanguageDialect.RacketPrime:
+                    return Lambda + "'";
+
+                case LanguageDialect.RacketSharp:
+                    return "" + Lambda + Sharp;
+
+                case LanguageDialect.RacketSnirk:
+                    return Lambda + "Snirk";
+
+                // We've exhausted all possible LanguageDialect definitions
+                default: return ":D";
+            }
+        }
+
+        public static string GetFullLanguageName(LanguageDialect dialect)
+        {
+            return dialect.ToString();
+        }
+
+        #endregion
+
+        #region String Operations
 
         /// <summary>
         /// Gets an "op_XXXX" or similar name for the given method.
@@ -235,5 +271,7 @@ namespace RacketStar
                 default: return '!';
             }
         }
+        
+        #endregion
     }
 }

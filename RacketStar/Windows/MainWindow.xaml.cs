@@ -29,7 +29,8 @@ namespace RacketStar
             InitializeComponent();
 
             // Set the title
-            Title = "Untitled - " + Utils.Lambda + Utils.Star;
+            // TODO load language from settings
+            SetCodeLanguage(LanguageDialect.RacketPrime);
 
             /*
             // Load old content
@@ -63,11 +64,19 @@ namespace RacketStar
             // Clear the document
             HistoryBox.Document = new FlowDocument();
             HistoryBox.AppendText("{0}{1} version {2} initialized. ".Format(Utils.Lambda, Utils.Star, Assembly.GetExecutingAssembly().GetName().Version));
-            WriteHyperLink("Click here", new Uri("http://racket-lang.org/"));
+            WriteHyperLink("Click here", new Uri("http://racket-lang.org"));
             HistoryBox.AppendText(" for Racket documentation.");
         }
 
         #region Events
+
+        void SetCodeLanguage(LanguageDialect dialect)
+        {
+            var languageName = Utils.GetLanguageName(dialect);
+            Title = "Untitled - " + languageName;
+            MenuLanguageHeader.Header = "Now using " + Utils.GetFullLanguageName(dialect);
+            LanguageLabel.Content = languageName;
+        }
         
         void HistoryBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
@@ -100,7 +109,6 @@ namespace RacketStar
             var link = new Hyperlink(new Run(text));
             link.NavigateUri = uri;
             link.ToolTip = uri.ToString();
-            link.IsEnabled = true;
             AppendInline(link);
         }
 
@@ -138,11 +146,6 @@ namespace RacketStar
             var label = new Label();
             label.Content = text;
             WriteControl(label);
-        }
-
-        public void SetLanguage(string languageName)
-        {
-            LanguageLabel.Content = languageName;
         }
 
         #endregion

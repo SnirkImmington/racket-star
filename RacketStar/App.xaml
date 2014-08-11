@@ -15,7 +15,7 @@
             <Setter Property="IsDocumentEnabled" Value="True"/>
             
             <!-- Font (family overridden in settings) -->
-            <Setter Property="FontFamily" Value="Resources."/>
+            <Setter Property="FontFamily" Value="Consolas"/>
             <Setter Property="FontSize" Value="13"/>
             
             <!-- Border -->
