@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Reflection;
 using System.Diagnostics;
+using RacketStar.Runtime;
 
 namespace RacketStar
 {
@@ -41,7 +42,6 @@ namespace RacketStar
             HistoryBox.AppendText("{0}{1} version {2} initialized. ".Format(Utils.Lambda, Utils.Star, Assembly.GetExecutingAssembly().GetName().Version));
             WriteHyperLink("Click here", new Uri("http://racket-lang.org/"));
             HistoryBox.AppendText(" for Racket documentation.");
-            
         }
 
         #region Events

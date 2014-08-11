@@ -63,8 +63,8 @@ namespace RacketStar
         /// <summary>
         /// Capitalizes a racket-style underscored string.
         /// </summary>
-        /// <param name="racketString"></param>
-        /// <returns></returns>
+        /// <param name="racketString">The string to capitalize</param>
+        /// <returns>C# style string - 'string_format' -> "StringFormat"</returns>
         public static string ToCSharpString(string racketString)
         {
             var subStrings = new List<string>(10);
@@ -164,6 +164,10 @@ namespace RacketStar
             return input;
         }
 
+        /// <summary>
+        /// Extension method for string.Format
+        /// </summary>
+        /// <param name="args">The args to format</param>
         public static string Format(this string input, params object[] args) { return string.Format(input, args); }
 
         /// <summary>
@@ -172,9 +176,9 @@ namespace RacketStar
         /// If finish is greater than the length of the string an exception is thrown.
         /// </summary>
         /// <exception cref="ArgumentOutOfRangeException">If the index is greater than the length of the string</exception>
-        /// <param name="input"></param>
-        /// <param name="start"></param>
-        /// <param name="finish"></param>
+        /// <param name="input">Text to input</param>
+        /// <param name="start">Starting position to check</param>
+        /// <param name="finish">Last position to check</param>
         /// <returns></returns>
         public static string SubstringIndex(this string input, int start, int finish) 
         {

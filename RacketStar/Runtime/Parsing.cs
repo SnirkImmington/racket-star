@@ -69,6 +69,7 @@ namespace RacketStar.Runtime
                 }
 
             }
+            return null;
         }
 
         /// <summary>
@@ -101,25 +102,26 @@ namespace RacketStar.Runtime
 
         private static int FindNextChar(char toFind)
         {
-
+            return 0;
         }
 
         /// <summary>
-        /// Goes from char to char, skpping over string literals.
+        /// Goes from char to char, skipping over string literals.
+        /// Gets the ending index of the string.
         /// </summary>
-        /// <param name="toFind"></param>
-        /// <param name="toCount"></param>
-        /// <returns></returns>
-        private static int FindStringEnding(string expression, int stringStart)
+        public static int FindStringEnding(string expression, int stringStart)
         {
             bool isEscaped = false;
             for (int i = stringStart; i < expression.Length; i++)
             {
                 // Enable escaping if it's disabled, or disable it if enabled
                 if (expression[i] == '\\') isEscaped = !isEscaped;
-                // If it's a regular char, escaped is false
-                else if (isEscaped) isEscaped = false;
+
+                else if (expression[i] == '"' && !isEscaped) return i;
+
+                else isEscaped = false;
             }
+            throw new ArgumentOutOfRangeException("String never terminated!!!");
         }
 
         /// <summary>
