@@ -13,6 +13,7 @@
             <!-- Document settings -->
             <Setter Property="IsInactiveSelectionHighlightEnabled" Value="True"/>
             <Setter Property="IsDocumentEnabled" Value="True"/>
+            <Setter Property="Typography.Fraction" Value="Stacked"/>
             
             <!-- Font (family overridden in settings) -->
             <Setter Property="FontFamily" Value="Consolas"/>
@@ -25,6 +26,13 @@
             <!-- Padding -->
             <Setter Property="Padding" Value="3"/>
             <Setter Property="Margin" Value="1"/>
+            
+            <!-- Styleception to remove line padding -->
+            <Style.Resources>
+                <Style TargetType="{x:Type Paragraph}">
+                    <Setter Property="Margin" Value="0"/>
+                </Style>
+            </Style.Resources>
             
         </Style>
         

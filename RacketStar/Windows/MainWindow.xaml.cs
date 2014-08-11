@@ -73,7 +73,7 @@ namespace RacketStar
 
             var simpleCode = @"(def x (+ 1 2)) (pr ""Hi, w!"")";
             HistoryBox.AppendText(simpleCode);
-            Parsing.ParseLine(simpleCode);
+            //Parsing.ParseLine(simpleCode);
         }
 
         #region Events
