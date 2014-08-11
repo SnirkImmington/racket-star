@@ -113,13 +113,12 @@ namespace RacketStar.Runtime
         private static int FindStringEnding(string expression, int stringStart)
         {
             bool isEscaped = false;
-
             for (int i = stringStart; i < expression.Length; i++)
             {
+                // Enable escaping if it's disabled, or disable it if enabled
                 if (expression[i] == '\\') isEscaped = !isEscaped;
-
-
-                
+                // If it's a regular char, escaped is false
+                else if (isEscaped) isEscaped = false;
             }
         }
 

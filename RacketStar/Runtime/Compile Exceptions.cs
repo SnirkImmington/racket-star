@@ -22,4 +22,15 @@ namespace RacketStar.Runtime
         public MissingParenthesisException(int start, int finish, string message)
             : base(start, finish, message) { }
     }
+
+    class InvalidEscapeCharException : CompilationException
+    {
+        public char InvalidChar;
+
+        public InvalidEscapeCharException(int start, char badOne, string message)
+            : base(start, start, message)
+        {
+            InvalidChar = badOne;
+        }
+    }
 }

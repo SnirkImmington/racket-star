@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using RacketStar.Runtime;
 
 namespace RacketStar
 {
@@ -179,6 +180,56 @@ namespace RacketStar
         {
             if (finish > input.Length + 1) throw new ArgumentOutOfRangeException("The ending index must not be out of bounds of the string.");
             return input.Substring(start, finish - start + 1); 
+        }
+
+        /// <summary>
+        /// Gets an escaped version of a string. Can be used for chars (confirm that the length == 1).
+        /// </summary>
+        /// <param name="input">The text to input</param>
+        /// <returns>An escaped version.</returns>
+        public static string GetEscapeString(string input)
+        {
+            // Check for escaping and build the text
+            var isEscaped = false;
+            var builder = new StringBuilder();
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                // If we're escaped, add the escape char.
+                if (isEscaped)
+                {
+                    builder.Append(GetEscapeChar(input[i]));
+                    isEscaped = false;
+                }
+                // If not, look for escape char.
+                else if (input[i] == '\\')
+                    isEscaped = true;
+                // If neither append the char.
+                else builder.Append(input[i]);
+            }
+            // Should not be escaped at the end of the char.
+            if (isEscaped) { throw new ArgumentException("Input ended with escaped text!"); }
+
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// Gets an escape char for the input, or ! if invalid.
+        /// </summary>
+        /// <param name="input">The input to analyze</param>
+        /// <returns>Escaped version of the char: 'n' -> '\n'</returns>
+        public static char GetEscapeChar(char input)
+        {
+            switch (input)
+            {
+                case 'n': return '\n';
+                case 't': return '\t';
+                case 'r': return '\r';
+                case '"': return '"';
+                case '\'': return '\'';
+                case '\\': return '\\';
+                default: return '!';
+            }
         }
     }
 }
