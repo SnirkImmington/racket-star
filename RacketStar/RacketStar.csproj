@@ -97,6 +97,7 @@
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils.cs" />
+    <Compile Include="Workspace\Documentation.cs" />
     <Compile Include="Workspace\Scope.cs" />
     <Compile Include="Workspace\Workspace.cs" />
     <Page Include="Windows\MainWindow.xaml">

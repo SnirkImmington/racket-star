@@ -8,6 +8,11 @@ namespace RacketStar.Runtime
 {
     static class Parsing
     {
+        /// <summary>
+        /// Parses the input line or possibly a file.
+        /// </summary>
+        /// <param name="text">The text to parse.</param>
+        /// <returns></returns>
         public static CompileUnit ParseLine(string text)
         {
             var nodes = new List<SyntaxNode>();
@@ -118,7 +123,16 @@ namespace RacketStar.Runtime
             }
         }
 
-        private static int FindCommentEnding
+        /// <summary>
+        /// Goes to the end of the line
+        /// </summary>
+        /// <param name="expression">The text to parse</param>
+        /// <param name="commentStart">The start of the comment</param>
+        /// <returns>Next starting index of the text</returns>
+        private static int FindCommentEnding(string expression, int commentStart)
+        {
+            return expression.IndexOf('\n', commentStart);
+        }
     }
 
     class CompileUnit
