@@ -66,6 +66,14 @@ namespace RacketStar
             HistoryBox.AppendText("{0}{1} version {2} initialized. ".Format(Utils.Lambda, Utils.Star, Assembly.GetExecutingAssembly().GetName().Version));
             WriteHyperLink("Click here", new Uri("http://racket-lang.org"));
             HistoryBox.AppendText(" for Racket documentation.");
+            var code = 
+@";Writes ""Hello, World!"" to the console
+(define x (+ 2 3)) (define foo ""hello, \""boys\"""")
+(print ""Hello, World!"")";
+
+            var simpleCode = @"(def x (+ 1 2)) (pr ""Hi, w!"")";
+            HistoryBox.AppendText(simpleCode);
+            Parsing.ParseLine(simpleCode);
         }
 
         #region Events

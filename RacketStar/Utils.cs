@@ -219,7 +219,7 @@ namespace RacketStar
         public static string SubstringIndex(this string input, int start, int finish) 
         {
             if (finish > input.Length + 1) throw new ArgumentOutOfRangeException("The ending index must not be out of bounds of the string.");
-            return input.Substring(start, finish - start + 1); 
+            return input.Substring(start, finish - start); 
         }
 
         /// <summary>

@@ -25,8 +25,13 @@ namespace RacketStar.Runtime
                 // TODO
                 // 1. Watch for comments
                 // 2. Watch for and apply racketdocs
+
+                // We need to call findexpression with a pointer to the parenthesis ASAP because count starts at one.
+                // That means we need to wait till we have the parenthesis to go in.
+
                 var expressionEnd = FindExpression(text, i);
-                nodes.Add(ParseExpression(text.Substring(i, expressionEnd)));
+                // Don't include the first or last parenthesis here.
+                nodes.Add(ParseExpression(text.Substring(i+1, expressionEnd-1)));
                 i = expressionEnd;
             }
             return new CompileUnit(nodes.ToArray());
@@ -42,28 +47,32 @@ namespace RacketStar.Runtime
             // Split the node into arguments.
             var currStart = 0; // Use substrings instead of builders.
             // Possible args
-            var args = new List<SyntaxNode>();
-            for (int i = 0; i < expression.Length; i++)
+            var args = new List<SyntaxNode>(); int i;
+            for (i = 0; i < expression.Length; i++)
             {
+                var currChar = expression[i];
+                var currStartValue = expression[currStart];
                 if (expression[i] == ' ')
                 {
-                    args.Add(new TextSyntax(expression.Substring(currStart, i-1)));
+                    args.Add(new TextSyntax(expression.SubstringIndex(currStart, i)));
                     currStart = i + 1;
                 }
                 // If there's a sub expression beginning
                 else if (expression[i] == '(')
                 {
                     // If there's an inner expression, can also assume that we're on the next arg.
-                    args.Add(new TextSyntax(expression.Substring(currStart, i - 1)));
+                    if (i - currStart >  0)
+                        args.Add(new TextSyntax(expression.SubstringIndex(currStart, i - 1)));
 
                     // Start searching from the beginning of the expression
                     var endIndex = FindExpression(expression, i+1);
 
-                    // Parse the inner syntax node (from i to the end) and add to the args.
-                    args.Add(ParseExpression(expression.SubstringIndex(i, endIndex)));
+                    // Parse the inner syntax node (from i+1 to the end) and add to the args.
+                    // Use i + 1 here to avoid including the open parenthesis.
+                    args.Add(ParseExpression(expression.SubstringIndex(i+1, endIndex)));
 
                     // Continue around the expression.
-                    i = endIndex; currStart = i;
+                    i = endIndex; currStart = i - 1;
                 }
                 // If there's a string there
                 else if (expression[i] == '"')
@@ -83,12 +92,23 @@ namespace RacketStar.Runtime
                 }
 
             }
+            
+            var data = 0;
+
+            // Add the rest of the text if it's not done
+            if (i - currStart > 0)
+                args.Add(new TextSyntax(expression.SubstringIndex(currStart, i)));
+
+            
+
             // We've looked between the parenthesis. Time for some analysis
             return null;
         }
 
         /// <summary>
         /// Gets the index of the end of a current parenthesis node.
+        /// CURRENTLY INCLUDES CLOSE PARENTHESIS
+        /// handles text[0] == '('
         /// </summary>
         /// <param name="text">The text to parse</param>
         /// <param name="start">Where to start looking</param>
@@ -98,6 +118,7 @@ namespace RacketStar.Runtime
             // Keep track of the current text, number
             // of open/close parenthesis, and where we are.
             int count = 1, i = start;
+            if (text[start] == '(') i++;
             for (; i < text.Length; i++)
             {
                 // TODO decouple this code
@@ -133,6 +154,7 @@ namespace RacketStar.Runtime
         public static int FindStringEnding(string expression, int stringStart)
         {
             bool isEscaped = false;
+            if (expression[stringStart] == '"') stringStart++;
             for (int i = stringStart; i < expression.Length; i++)
             {
                 // Enable escaping if it's disabled, or disable it if enabled
