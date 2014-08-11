@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace RacketStar.Runtime
 {
+    /// <summary>
+    /// Contains methods for parsing text into racket
+    /// </summary>
     static class Parsing
     {
         /// <summary>
         /// Parses the input line or possibly a file.
         /// </summary>
         /// <param name="text">The text to parse.</param>
-        /// <returns></returns>
+        /// <returns>A compileUnit of the found expressions</returns>
         public static CompileUnit ParseLine(string text)
         {
             var nodes = new List<SyntaxNode>();
@@ -22,8 +25,6 @@ namespace RacketStar.Runtime
                 // TODO
                 // 1. Watch for comments
                 // 2. Watch for and apply racketdocs
-
-                // Eat sleep rave repeat
                 var expressionEnd = FindExpression(text, i);
                 nodes.Add(ParseExpression(text.Substring(i, expressionEnd)));
                 i = expressionEnd;
@@ -56,7 +57,6 @@ namespace RacketStar.Runtime
                 {
                     // If there's an inner expression, can also assume that we're on the next arg.
                     strings.Add(expression.Substring(currStart, i - 1));
-                    currStart = i + 1;
 
                     // Start searching from the beginning of the expression
                     var endIndex = FindExpression(expression, i+1);
@@ -65,7 +65,7 @@ namespace RacketStar.Runtime
                     args.Add(ParseExpression(expression.SubstringIndex(i, endIndex)));
 
                     // Continue around the expression.
-                    i = endIndex;
+                    i = endIndex; currStart = i;
                 }
                 // If there's a string there
                 else if (expression[i] == '"')
@@ -79,6 +79,7 @@ namespace RacketStar.Runtime
                 }
 
             }
+            // We've looked between 
             return null;
         }
 
@@ -95,9 +96,15 @@ namespace RacketStar.Runtime
             int count = 1, i = start;
             for (; i < text.Length; i++)
             {
+                // TODO decouple this code
+                // Skip over strings
+                if (text[i] == '"') i = FindStringEnding(text, i) + 1;
+                // Skip over comments
+                else if (text[i] == ';') i = FindCommentEnding(text, i);
+
                 // Keep track of how close we are 
                 // to being finished with the node
-                if (text[i] == '(') count++;
+                else if (text[i] == '(') count++;
                 else if (text[i] == ')') count--;
 
                 // If we've matched the total parenthesis count
