@@ -67,6 +67,16 @@ namespace RacketStar.Runtime
                     // Continue around the expression.
                     i = endIndex;
                 }
+                // If there's a string there
+                else if (expression[i] == '"')
+                {
+                    i = FindStringEnding(expression, i) + 1;
+                }
+                // Skip over comments
+                else if (expression[i] == ';')
+                {
+                    i = FindCommentEnding(expression, i) + 1;
+                }
 
             }
             return null;
