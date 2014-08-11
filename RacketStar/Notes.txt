@@ -1,0 +1,20 @@
+﻿General Notes
+=============
+Racket will use (new x args) for complex types in C#.
+(define x (new dictionary[list[string] int] length)
+// Taken from F#
+(define (add (x 't) (y 't)) (+ x y))
+// Lots of type assumtions here
+(define (dict 't) (new dictionary [t])
+)
+
+Missing from compilations:
+==========================
+1. Array syntax not implemented.
+2. Probably not going to implement extension methods.
+
+
+Dialect Differences in the Code
+===============================
+1. NO TYPE GENERICS IN RACKET
+2. Full reflection type creation in C#

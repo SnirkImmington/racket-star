@@ -1,8 +1,15 @@
-racket-sharp
+λ* (racket-star)
 ==================
+**WIP** | Current version 0.0.3 alpha | Written in C#
 
-A .NET based LISP style interpreter, designed to work with most racket code, adapting the C# cdoebase.
+A high-level [Racket](http://racket-lang.org) interpreter, using the .NET runtime.
 
-Currently planned to work with all C# code using basic data types, unsure of what kind of object system to use.
+This project is not finished. The current goal is to have a high-level Racket syntaxed language using .NET reflection for the main libraries. λ* will have two dialects:
 
-This should be comparable with basic racket code, some method renaming may be required.
+## λ♯ (RacketSharp)
+
+This variant will compile into .NET code. RacketSharp will use the .NET object structure, as well as having side effects and other C♯ features. High-level internal runtime with λ♯ will still be supported.
+
+## λ' (RacketPrime)
+
+This dialect will more closely mirror racket, in syntax and function. Although the base libraries will use C♯ reflection, some names will be selectively changed and some features of C♯ and .NET will be blocked in order to more properly emulate racket. λ' will *not* be compatible with .NET; the ultimate goal is a language and library base identical to Racket itself.
