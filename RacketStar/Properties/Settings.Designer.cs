@@ -22,5 +22,178 @@ namespace RacketStar.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string App_SavePath {
+            get {
+                return ((string)(this["App_SavePath"]));
+            }
+            set {
+                this["App_SavePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string App_InstallPath {
+            get {
+                return ((string)(this["App_InstallPath"]));
+            }
+            set {
+                this["App_InstallPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string App_DocumentsPath {
+            get {
+                return ((string)(this["App_DocumentsPath"]));
+            }
+            set {
+                this["App_DocumentsPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool GUI_CompleteParenthesis {
+            get {
+                return ((bool)(this["GUI_CompleteParenthesis"]));
+            }
+            set {
+                this["GUI_CompleteParenthesis"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Editor_LastPath {
+            get {
+                return ((string)(this["Editor_LastPath"]));
+            }
+            set {
+                this["Editor_LastPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection Editor_LastFiles {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["Editor_LastFiles"]));
+            }
+            set {
+                this["Editor_LastFiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool GUI_CompleteQuotes {
+            get {
+                return ((bool)(this["GUI_CompleteQuotes"]));
+            }
+            set {
+                this["GUI_CompleteQuotes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Consolas")]
+        public string GUI_FontFamily {
+            get {
+                return ((string)(this["GUI_FontFamily"]));
+            }
+            set {
+                this["GUI_FontFamily"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool GUI_Colors {
+            get {
+                return ((bool)(this["GUI_Colors"]));
+            }
+            set {
+                this["GUI_Colors"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color GUI_ColorParenthesis {
+            get {
+                return ((global::System.Drawing.Color)(this["GUI_ColorParenthesis"]));
+            }
+            set {
+                this["GUI_ColorParenthesis"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color GUI_ColorSymbols {
+            get {
+                return ((global::System.Drawing.Color)(this["GUI_ColorSymbols"]));
+            }
+            set {
+                this["GUI_ColorSymbols"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color GUI_ColorText {
+            get {
+                return ((global::System.Drawing.Color)(this["GUI_ColorText"]));
+            }
+            set {
+                this["GUI_ColorText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color GUI_ColorNumbers {
+            get {
+                return ((global::System.Drawing.Color)(this["GUI_ColorNumbers"]));
+            }
+            set {
+                this["GUI_ColorNumbers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color GUI_ColorStrings {
+            get {
+                return ((global::System.Drawing.Color)(this["GUI_ColorStrings"]));
+            }
+            set {
+                this["GUI_ColorStrings"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Drawing.Color GUI_ColorComments {
+            get {
+                return ((global::System.Drawing.Color)(this["GUI_ColorComments"]));
+            }
+            set {
+                this["GUI_ColorComments"] = value;
+            }
+        }
     }
 }
