@@ -1,0 +1,21 @@
+﻿<Window x:Class="RacketStar.Windows.FileEditor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FileEditor" Height="500" Width="900">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Menu Name="TheMenu">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Save" Command="ApplicationCommands.Save"/>
+                <MenuItem Header="Save _As" Command="ApplicationCommands.SaveAs"/>
+                <Separator/>
+                <MenuItem Header="_Open" Command="ApplicationCommands.Open"/>
+                <MenuItem Header="Open _Recent"/>
+            </MenuItem>
+        </Menu>
+        <RichTextBox Grid.Row="1" Name="TheBox" Style="{StaticResource CodeBox}"/>
+    </Grid>
+</Window>
