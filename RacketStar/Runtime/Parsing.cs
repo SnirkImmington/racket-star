@@ -41,22 +41,20 @@ namespace RacketStar.Runtime
         {
             // Split the node into arguments.
             var currStart = 0; // Use substrings instead of builders.
-            // Save the args as text for parsing at the end.
-            var strings = new List<string>();
             // Possible args
             var args = new List<SyntaxNode>();
             for (int i = 0; i < expression.Length; i++)
             {
                 if (expression[i] == ' ')
                 {
-                    strings.Add(expression.Substring(currStart, i-1));
+                    args.Add(new TextSyntax(expression.Substring(currStart, i-1)));
                     currStart = i + 1;
                 }
                 // If there's a sub expression beginning
                 else if (expression[i] == '(')
                 {
                     // If there's an inner expression, can also assume that we're on the next arg.
-                    strings.Add(expression.Substring(currStart, i - 1));
+                    args.Add(new TextSyntax(expression.Substring(currStart, i - 1)));
 
                     // Start searching from the beginning of the expression
                     var endIndex = FindExpression(expression, i+1);
@@ -70,16 +68,22 @@ namespace RacketStar.Runtime
                 // If there's a string there
                 else if (expression[i] == '"')
                 {
-                    i = FindStringEnding(expression, i) + 1;
+                    var ending = FindStringEnding(expression, i) + 1;
+                    args.Add(new StringLiteralSyntax(Utils.GetEscapeString(expression.SubstringIndex(i, ending))));
+                    i = ending;
                 }
                 // Skip over comments
                 else if (expression[i] == ';')
                 {
-                    i = FindCommentEnding(expression, i) + 1;
+                    var ending = FindCommentEnding(expression, i) + 1;
+                    // TODO sort ;! docs comments and ; comments.
+                    // Also, language differences!
+                    args.Add(new CommentSyntax(expression.SubstringIndex(i, ending)));
+                    i = ending;
                 }
 
             }
-            // We've looked between 
+            // We've looked between the parenthesis. Time for some analysis
             return null;
         }
 

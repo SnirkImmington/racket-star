@@ -39,6 +39,33 @@ namespace RacketStar
     }
 
     /// <summary>
+    /// Basic SyntaxNode for just some text, created before the arguments are understood
+    /// </summary>
+    class StringLiteralSyntax : SyntaxNode
+    {
+        /// <summary>
+        /// The text in the code
+        /// </summary>
+        public string String;
+
+        /// <summary>
+        /// Returns the text.
+        /// </summary>
+        public override object GetValue(bool runTime, LanguageDialect dialect)
+        {
+            return this.String;
+        }
+
+        /// <summary>
+        /// Constructor with text.
+        /// </summary>
+        public StringLiteralSyntax(string text)
+        {
+            this.String = text;
+        }
+    }
+
+    /// <summary>
     /// SyntaxNode for chars or strings or ints/floats/doubles
     /// which are known at compile time.
     /// </summary>

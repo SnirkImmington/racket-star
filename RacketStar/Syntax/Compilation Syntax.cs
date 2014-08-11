@@ -10,7 +10,7 @@ namespace RacketStar
     /// <summary>
     /// Basic SyntaxNode for just some text, created before the arguments are understood
     /// </summary>
-    class CompilationTextSyntax : SyntaxNode
+    class TextSyntax : SyntaxNode
     {
         /// <summary>
         /// The text in the code
@@ -28,7 +28,7 @@ namespace RacketStar
         /// <summary>
         /// Constructor with text.
         /// </summary>
-        public CompilationTextSyntax(string text)
+        public TextSyntax(string text)
         {
             Text = text;
         }
