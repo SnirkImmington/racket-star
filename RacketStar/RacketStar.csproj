@@ -95,6 +95,9 @@
     <Compile Include="Syntax\racket-sharp-racket Syntax.cs" />
     <Compile Include="Syntax\RacketSharpSharp Syntax.cs" />
     <Compile Include="Testing.cs" />
+    <Compile Include="Windows\FileEditor.xaml.cs">
+      <DependentUpon>FileEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\TestWindow.xaml.cs">
       <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,10 @@
     <Compile Include="Workspace\Documentation.cs" />
     <Compile Include="Workspace\Scope.cs" />
     <Compile Include="Workspace\Workspace.cs" />
+    <Page Include="Windows\FileEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

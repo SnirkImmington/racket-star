@@ -99,8 +99,6 @@ namespace RacketStar.Runtime
             if (i - currStart > 0)
                 args.Add(new TextSyntax(expression.SubstringIndex(currStart, i)));
 
-            
-
             // We've looked between the parenthesis. Time for some analysis
             return null;
         }
@@ -177,6 +175,32 @@ namespace RacketStar.Runtime
         {
             return expression.IndexOf('\n', commentStart);
         }
+
+        /// <summary>
+        /// Compiles parsed syntax - figures out method expressions/variable gets/etc
+        /// </summary>
+        /// <param name="nodes">The split text of the node</param>
+        /// <param name="dialect">The langauge</param>
+        private static SyntaxNode GetNodeFromTexts(SyntaxNode[] nodes, LanguageDialect dialect)
+        {
+            if (nodes[0] is TextSyntax)
+            {
+                var text = nodes[0].GetValue(false, dialect);
+            }
+            return null;
+        }
+
+        private static SyntaxNode GetNodeData()
+        {
+            return null;
+        }
+    }
+    [Flags]
+    enum NodeType : byte
+    {
+        Argument = 0,
+        MethodWithArguments = 2,
+
     }
 
     class CompileUnit

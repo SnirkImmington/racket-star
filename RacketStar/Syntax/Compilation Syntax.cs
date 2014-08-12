@@ -34,6 +34,11 @@ namespace RacketStar
         }
     }
 
+    class TypeSyntax : TextSyntax
+    {
+
+    }
+
     /// <summary>
     /// Syntax for comments.
     /// </summary>
