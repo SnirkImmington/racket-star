@@ -1,0 +1,15 @@
+﻿Snirk Syntax
+------------
+
+Executable File Format:
+
+"class" <className> ["extends" <baseClassNames, >] ["implements" <interfaceNames>]
+
+	[accessability ] <returnType> <methodName> "(" <methodArguements ,> ")"
+
+	<methodInvocations>
+
+	"}"
+
+| Main executed code
+<methodInvocations>
