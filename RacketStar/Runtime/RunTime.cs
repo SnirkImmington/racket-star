@@ -100,6 +100,7 @@ namespace RacketStar.Runtime
         /// <returns></returns>
         public static object GetVariableValue(string name, object[] arguments, Type[] typeArguments)
         {
+            // "string-length" "hello world" null
             #region TODO search the local stack for the variables
 
             // Search the scope for the variable
@@ -115,7 +116,7 @@ namespace RacketStar.Runtime
             // At this point, we need to search C# libs.
             // rakcet -> C# naming:
             // string-format -> String.Format
-            // string_builder-new -> new StringBuilder (LAAATER)
+            // string_builder-new -> new StringBuilder 
             // (string_builder-length builder) -> StringBuilder.Length
             var names = Utils.GetCSharpStrings(name);
 

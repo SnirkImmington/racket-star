@@ -36,7 +36,10 @@ namespace RacketStar
 
     class TypeSyntax : TextSyntax
     {
+        public TypeSyntax() : base(null)
+        {
 
+        }
     }
 
     /// <summary>

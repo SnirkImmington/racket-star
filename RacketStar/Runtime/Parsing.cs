@@ -200,6 +200,8 @@ namespace RacketStar.Runtime
     {
         Argument = 0,
         MethodWithArguments = 2,
+        MethodNoArguments = 4,
+        TypeArgument = 8,
 
     }
 

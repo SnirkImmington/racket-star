@@ -5,6 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using RacketStar.Runtime;
 
+
+[Flags]
+enum SomeFlagsSettings : byte
+{
+    beCareful = 1,
+    ConserveAmmo = 2,
+    Quiet = 4,
+    BeSpeedy = 8
+}
+
+//var settings = SomeFlagsSettings.beCareful | SomeFlagsSettings.Quiet | SomeFlagsSetting.ConserveAmmo;
+//if (settings.HasFlag(SomeFlagSettings.beCareful)) maxSpeed = 3;
+
 namespace RacketStar
 {
     /// <summary>
