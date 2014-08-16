@@ -92,14 +92,45 @@ namespace RacketStar.Runtime
                 }
 
             }
-            
-            var data = 0;
 
             // Add the rest of the text if it's not done
             if (i - currStart > 0)
                 args.Add(new TextSyntax(expression.SubstringIndex(currStart, i)));
 
             // We've looked between the parenthesis. Time for some analysis
+            return null;
+        }
+
+        private static SyntaxNode ParseAtom(string atom)
+        {
+            string numberParse = atom.Replace("_", "");
+            string numberSub = atom.Substring(0, numberParse.Length - 2);
+
+            if (numberParse[numberParse.Length-1] == 'd')
+            {
+                double posDouble;
+                if (double.TryParse(numberSub, out posDouble))
+                {
+                    return new LiteralSyntaxNode("double", posDouble);
+                }
+            }
+            else if (numberParse[numberParse.Length-1] == 'f')
+            {
+                float posFloat;
+                if (float.TryParse(numberSub, out posFloat))
+                {
+                    return new LiteralSyntaxNode("float", posFloat);
+                }
+            }
+            else
+            {
+                int posInt;
+                if (int.TryParse(numberParse, out posInt))
+                {
+                    return new LiteralSyntaxNode("int", posInt);
+                }
+            }
+
             return null;
         }
 
@@ -147,7 +178,7 @@ namespace RacketStar.Runtime
 
         /// <summary>
         /// Goes from char to char, skipping over string literals.
-        /// Gets the ending index of the string.
+        /// Gets the ending index of the string - goes to the quote location.
         /// </summary>
         public static int FindStringEnding(string expression, int stringStart)
         {
@@ -194,15 +225,6 @@ namespace RacketStar.Runtime
         {
             return null;
         }
-    }
-    [Flags]
-    enum NodeType : byte
-    {
-        Argument = 0,
-        MethodWithArguments = 2,
-        MethodNoArguments = 4,
-        TypeArgument = 8,
-
     }
 
     class CompileUnit

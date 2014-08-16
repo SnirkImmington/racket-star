@@ -79,6 +79,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Languages\Language.cs" />
+    <Compile Include="Languages\RacketPrime.cs" />
+    <Compile Include="Languages\RacketSharp.cs" />
     <Compile Include="Runtime\Compile Exceptions.cs" />
     <Compile Include="Runtime\Dialects.cs" />
     <Compile Include="Runtime\Exceptions.cs" />
@@ -104,6 +107,7 @@
     <Compile Include="Utils.cs" />
     <Compile Include="Workspace\Documentation.cs" />
     <Compile Include="Workspace\Scope.cs" />
+    <Compile Include="Workspace\UserSettings.cs" />
     <Compile Include="Workspace\Workspace.cs" />
     <Page Include="Windows\FileEditor.xaml">
       <SubType>Designer</SubType>
@@ -176,7 +180,9 @@
   <ItemGroup>
     <Resource Include="racket-sharp icon 1.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Syntax\Snirk Syntax.txt" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="GUI\racket-sharp icon 1.ico" />
   </ItemGroup>
@@ -188,6 +194,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="racket-star icon 2.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Languages\Racket Specifications.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

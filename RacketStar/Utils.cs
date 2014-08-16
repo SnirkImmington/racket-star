@@ -5,19 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using RacketStar.Runtime;
 
-
-[Flags]
-enum SomeFlagsSettings : byte
-{
-    beCareful = 1,
-    ConserveAmmo = 2,
-    Quiet = 4,
-    BeSpeedy = 8
-}
-
-//var settings = SomeFlagsSettings.beCareful | SomeFlagsSettings.Quiet | SomeFlagsSetting.ConserveAmmo;
-//if (settings.HasFlag(SomeFlagSettings.beCareful)) maxSpeed = 3;
-
 namespace RacketStar
 {
     /// <summary>
@@ -107,6 +94,9 @@ namespace RacketStar
             return builder.ToString();
         }
 
+        /// <summary>
+        /// Gets the language abbreviation for the dialect
+        /// </summary>
         public static string GetLanguageName(LanguageDialect dialect)
         {
             switch (dialect)
@@ -128,6 +118,9 @@ namespace RacketStar
             }
         }
 
+        /// <summary>
+        /// Gets the written-out langauge name for the dialect
+        /// </summary>
         public static string GetFullLanguageName(LanguageDialect dialect)
         {
             return dialect.ToString();
@@ -136,6 +129,25 @@ namespace RacketStar
         #endregion
 
         #region String Operations
+
+        public static string GetCharOperatorString(string input)
+        {
+            switch (input)
+            {
+                case "+": return "op_Addition";
+                case "-": return "op_Subtraction";
+                case "*": return "op_Multiplication";
+                case "/": return "op_Division";
+
+                case ">": return "op_GreaterThan";
+                case "<": return "op_LessThan";
+
+                case ">=": return "op_GreaterThanOrEqual";
+                case "<=": return "op_LessThanOrEqual";
+
+                default: return input.ToString();
+            }
+        }
 
         /// <summary>
         /// Gets an "op_XXXX" or similar name for the given method.
@@ -148,16 +160,8 @@ namespace RacketStar
         {
             switch (input)
             {
-                case "+": return "op_Addition";
-                case "-": return "op_Subtraction";
-                case "*": return "op_Multiplication";
-                case "/": return "op_Division";
-
                 case "++": return "op_Increment";
                 case "--": return "op_Decrement";
-
-                case ">": return "op_GreaterThan";
-                case "<": return "op_LessThan";
 
                 case "<<": return "op_LeftShift";
                 case ">>": return "op_RightShift";

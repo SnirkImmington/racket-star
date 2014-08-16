@@ -78,6 +78,12 @@ namespace RacketStar
             var simpleCode = @"(def x (+ 1 2)) (pr ""Hi, w!"")";
             HistoryBox.AppendText(simpleCode);
             //Parsing.ParseLine(simpleCode);
+
+            double dubs;
+            if (double.TryParse("1.456d", out dubs))
+            {
+                HistoryBox.AppendText(dubs.ToString());
+            }
         }
 
         #region Events
@@ -164,7 +170,7 @@ namespace RacketStar
 
         private void OnClosed(object sender, EventArgs e)
         {
-            Properties.Settings.Default.Save();
+            // Save settings/etc
         }
     }
 
