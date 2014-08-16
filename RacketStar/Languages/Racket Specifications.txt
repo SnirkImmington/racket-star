@@ -1,0 +1,51 @@
+﻿boolean? x => x is bool
+
+not x => x == false ? true : false
+
+equal? x y => eqv? x == y (also the case for objects) It determines if (complex) objects are equal in value
+> (equal? 'yes 'yes)
+#t
+> (equal? 'yes 'no)
+#f
+> (equal? (expt 2 100) (expt 2 100))
+#t
+> (equal? 2 2.0)
+#f
+> (equal? (make-string 3 #\z) (make-string 3 #\z))
+#t
+
+= is for numeric comparison only
+> (= 1 1.0)
+#t
+> (= 1 2)
+#f
+> (= 2+3i 2+3i 2+3i)
+#t
+
+eqv? x y => eq?, x == y SAME IN MEMORY, but it gets primitive types
+> (eqv? (expt 2 100) (expt 2 100))
+#t
+> (eqv? 2 2.0)
+#f
+> (eqv? (integer->char 955) (integer->char 955))
+#t
+> (eqv? (make-string 3 #\z) (make-string 3 #\z))
+#f
+
+eq? x y => x and y are same object, x == y. SAME IN MEMORY
+> (eq? 'yes 'yes)
+#t
+> (eq? 'yes 'no)
+#f
+> (let ([v (mcons 1 2)]) (eq? v v))
+#t
+> (eq? (mcons 1 2) (mcons 1 2))
+#f
+> (eq? (make-string 3 #\z) (make-string 3 #\z))
+#f
+
+Places to use orignal racket
+----------------------------
+
+Modules
+Equality operators
