@@ -87,24 +87,191 @@ namespace RacketStar.Runtime
                     var ending = FindCommentEnding(expression, i) + 1;
                     // TODO sort ;! docs comments and ; comments.
                     // Also, language differences!
-                    args.Add(new CommentSyntax(expression.SubstringIndex(i, ending)));
+                    //args.Add(new CommentSyntax(expression.SubstringIndex(i, ending)));
                     i = ending;
                 }
-
             }
 
             // Add the rest of the text if it's not done
             if (i - currStart > 0)
                 args.Add(new TextSyntax(expression.SubstringIndex(currStart, i)));
 
+            // Handle no syntax nodes
+            if (args.Count == 0) return null;
+
+
+
             // We've looked between the parenthesis. Time for some analysis
             return null;
         }
 
-        private static SyntaxNode ParseAtom(string atom)
+        private static string[] ParseSections(string input)
         {
+            var turn = new List<string>(); 
+            int i, currStart = 0;
+            for (i = 0; i < input.Length; i++)
+            {
+                var currChar = input[i];
+                var currStartValue = input[currStart];
+                if (input[i] == ' ')
+                {
+                    turn.Add(input.SubstringIndex(currStart, i));
+                    currStart = i + 1;
+                }
+                // If there's a sub expression beginning
+                else if (input[i] == '(')
+                {
+                    // If there's an inner expression, can also assume that we're on the next arg.
+                    if (i - currStart > 0)
+                        turn.Add(input.SubstringIndex(currStart, i - 1));
+
+                    // Start searching from the beginning of the expression
+                    var endIndex = FindExpression(input, i + 1);
+
+                    // Parse the inner syntax node (from i+1 to the end) and add to the args.
+                    // Use i + 1 here to avoid including the open parenthesis.
+                    turn.Add(input.SubstringIndex(i + 1, endIndex));
+
+                    // Continue around the expression.
+                    i = endIndex; currStart = i - 1;
+                }
+                // If there's a string there
+                else if (input[i] == '"')
+                {
+                    var ending = FindStringEnding(input, i) + 1;
+                    turn.Add(input.SubstringIndex(i, ending));
+                    //turn.Add(new StringLiteralSyntax(Utils.GetEscapeString(input.SubstringIndex(i, ending))));
+                    i = ending;
+                }
+                // Skip over comments
+                else if (input[i] == ';')
+                {
+                    var ending = FindCommentEnding(input, i) + 1;
+                    // TODO sort ;! docs comments and ; comments.
+                    // Also, language differences!
+                    //args.Add(new CommentSyntax(expression.SubstringIndex(i, ending)));
+                    i = ending;
+                }
+            }
+
+            // Add the rest of the text if it's not done
+            if (i - currStart > 0)
+                turn.Add(input.SubstringIndex(currStart, i));
+            return turn.ToArray();
+        }
+
+        private static SyntaxNode ParseNode(string[] parts, LanguageDialect dialect)
+        {
+            var current = 0;
+            
+            #region If syntax
+            if (parts[0] == "if")
+            {
+                // if <cond> <true> <false>
+                // TODO make it smarter, identify parts, if <cond> <true> for no falses
+                if (parts.Length != 4)
+                    throw new InvalidSyntaxException("If statement had " + parts.Length + "instead of (if <condition> <true> <false>)!");
+
+                return new IfConditionalSyntax(
+                    ParseNode(ParseSections(parts[1]), dialect),  //  cond
+                    ParseNode(ParseSections(parts[2]), dialect),  //  true
+                    ParseNode(ParseSections(parts[3]), dialect)); // false
+            }
+            #endregion
+
+            #region cond syntax
+            if (parts[0] == "cond")
+            {
+                // cond [<condition> <statement>]
+                // there are parenthesis around those that should have been
+                // picked up (even though we're not looking for squares atm
+                // so there should actully only be two parts.
+                if (parts.Length != 2)
+                    throw new InvalidSyntaxException("cond statement had " + parts.Length + " parts instead of (cond (<condition> <true> ...))!");
+
+                var conds = new List<Tuple<SyntaxNode, SyntaxNode>>();
+                var states = ParseSections(parts[1]);
+                for (int i = 0; i < states.Length; i++)
+                {
+                    var subs = ParseSections(states[i]);
+                    if (subs.Length != 2)
+                        throw new InvalidSyntaxException("cond inner statement #" + (i + 1) + " had " + subs.Length + " parts instead of (cond (<condition> <true>))!");
+
+                    var condition = ParseNode(ParseSections(subs[0]), dialect);
+                    var value = ParseNode(ParseSections(subs[1]), dialect);
+
+                    conds.Add(new Tuple<SyntaxNode, SyntaxNode>(condition, value));
+                }
+                return null; // TODO add cond syntax node.
+            }
+            #endregion
+
+            #region define syntax
+            else if (parts[0] == "define")
+            {
+                if (dialect == LanguageDialect.RacketSharp)
+                {
+
+                }
+                else
+                {
+
+                }
+            }
+            #endregion
+
+            #region let syntax
+            else if (parts[0] == "let")
+            {
+
+            }
+            #endregion
+
+            #region for syntax
+            else if (parts[0] == "for")
+            {
+                
+            }
+            #endregion
+
+            #region lambda syntax
+            #endregion
+
+            #region while syntax
+            #endregion
+
+            #region invocation syntax
+            #endregion
+
+            #region variable syntax
+            #endregion
+
+        }
+
+        private static SyntaxNode ParseAtom(string atom, LanguageDialect dialect)
+        {
+            if (atom[0] == '"')
+            {
+                switch (atom.LastChar())
+                {
+                    case '"':
+                        // parse string
+                        var escapedString = Utils.GetEscapeString(atom);
+                        return new StringLiteralSyntax(escapedString);
+
+                    case 'c':
+                        // parse string, get char
+                        var escapedCharString = Utils.GetEscapeString(atom);
+                        if (escapedCharString.Length != 1) throw new ArgumentException("Attempted to parse a char, it was not of length 1!");
+                        return new CharLiteralSyntax(escapedCharString[0]);
+
+                    default: throw new ArgumentException("Tried to parse a string not ending with a quote!");
+                }
+            }
+
             string numberParse = atom.Replace("_", "");
             string numberSub = atom.Substring(0, numberParse.Length - 2);
+            bool hasDec = atom.Contains('.');
 
             if (numberParse[numberParse.Length-1] == 'd')
             {

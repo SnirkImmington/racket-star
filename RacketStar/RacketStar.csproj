@@ -95,8 +95,8 @@
     <Compile Include="Syntax\Compilation Syntax.cs" />
     <Compile Include="Syntax\Function Syntax.cs" />
     <Compile Include="Syntax\Language Core Syntax.cs" />
-    <Compile Include="Syntax\racket-sharp-racket Syntax.cs" />
-    <Compile Include="Syntax\RacketSharpSharp Syntax.cs" />
+    <Compile Include="Syntax\RacketPrime Syntax.cs" />
+    <Compile Include="Syntax\RacketSharpSyntax.cs" />
     <Compile Include="Testing.cs" />
     <Compile Include="Windows\FileEditor.xaml.cs">
       <DependentUpon>FileEditor.xaml</DependentUpon>

@@ -66,6 +66,25 @@ namespace RacketStar
     }
 
     /// <summary>
+    /// Literal syntax for chars, represented with quotes and a c - (define theChar "L"c)
+    /// 
+    /// </summary>
+    class CharLiteralSyntax : SyntaxNode
+    {
+        public char Char;
+
+        public override object GetValue(bool runTime, LanguageDialect dialect)
+        {
+            return Char;
+        }
+
+        public CharLiteralSyntax(char value)
+        {
+            Char = value;
+        }
+    }
+
+    /// <summary>
     /// SyntaxNode for chars or strings or ints/floats/doubles
     /// which are known at compile time.
     /// </summary>

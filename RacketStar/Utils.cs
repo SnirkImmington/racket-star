@@ -240,6 +240,11 @@ namespace RacketStar
         }
 
         /// <summary>
+        /// Gets the last char of a string.
+        /// </summary>
+        public static char LastChar(this string input) { return input[input.Length - 1]; }
+
+        /// <summary>
         /// Gets an escaped version of a string. Can be used for chars (confirm that the length == 1).
         /// </summary>
         /// <param name="input">The text to input</param>
