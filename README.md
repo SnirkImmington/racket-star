@@ -1,15 +1,17 @@
-λ* (racket-star)
+Racket*
 ==================
-**WIP** | Current version 0.0.3 alpha | Written in C#
+**WIP** | Current version 0.0.4 alpha
 
-A high-level [Racket](http://racket-lang.org) interpreter, using the .NET runtime.
+Two high-level [Racket](http://racket-lang.org) interpreters, using the .NET runtime.
 
-This project is not finished. The current goal is to have a high-level Racket syntaxed language using .NET reflection for the main libraries. λ* will have two dialects:
+RacketStar consists of two Racket derivatices: Racket# and Racket' (prime).
 
-## λ♯ (RacketSharp)
+## Racket♯
 
-This variant will compile into .NET code. RacketSharp will use the .NET object structure, as well as having side effects and other C♯ features. High-level internal runtime with λ♯ will still be supported.
+Racket# is a.NET language. It compiles into .NET assemblies using the CLR and other libraries. It features both a compiler and a REPL. The compiler can make class files/executables and the REPL uses an `AssemblyBuilder` to create a dynamic assembly. Racket# uses the .NET libraries and runtime as its codebase. Although it features Lisp style naming and keyword abilities, compiling an assembly with a class named `some-class` can break functionality with C#.
 
-## λ' (RacketPrime)
+Ports to other environments, i.e. the JVM, are for later.
 
-This dialect will more closely mirror racket, in syntax and function. Although the base libraries will use C♯ reflection, some names will be selectively changed and some features of C♯ and .NET will be blocked in order to more properly emulate racket. λ' will *not* be compatible with .NET; the ultimate goal is a language and library base identical to Racket itself.
+## Racket' (RacketPrime)
+
+This will be an implementation of Racket at a high-level (using C#). Although I plan to include concepts such as keywords, quotes, quasiquotes, and the like, a certain amount of .NET -> Racket' will make the task easier (i.e. not having to redefine libraries). I hope, however, to evolve Racket' into being mostly self-contained in order to stay true to the language and its libraries.
